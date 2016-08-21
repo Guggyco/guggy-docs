@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+	<title>Rest API - Guggy Docs</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../test.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../android/">Guggy Docs</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="../android/">Android</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../ios-swift/">iOS (Swift)</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../web-sdk/">Web SDK</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href="./">Rest API</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                <li >
+                    <a rel="next" href="../web-sdk/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a rel="prev" >
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#getting-started">Getting Started</a></li>
+        
+            <li><a href="#getting-an-api-key">Getting an API Key</a></li>
+        
+    
+        <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
+        
+    
+        <li class="main "><a href="#media-preview">Media Preview</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h3 id="getting-started">Getting Started</h3>
+<h4 id="getting-an-api-key">Getting an API Key</h4>
+<p>Our API is free. Contact us at <strong>api@guggy.com</strong> to retrieve an API Key.</p>
+<h3 id="creating-gifs">Creating GIFs</h3>
+<p>Send a POST request to </p>
+<pre><code>http://text2gif.guggy.com/guggify
+</code></pre>
+
+<p>The request headers should include:</p>
+<pre><code>{
+    &quot;Content-Type&quot;:&quot;application/json&quot;,
+    &quot;apiKey&quot;:&quot;YOUR_API_KEY&quot;
+}
+</code></pre>
+
+<p>The request body should contain:</p>
+<pre><code>{
+    &quot;format&quot;: &quot;mp4&quot;, // either &quot;gif&quot; or &quot;mp4&quot;
+    &quot;sentence&quot; : &quot;some sentence&quot;
+}
+</code></pre>
+
+<p>The response will be in the format of:</p>
+<pre><code>{
+  &quot;reqId&quot;: &quot;5Ow7Ej46Sy&quot;,
+  &quot;mp4&quot;: &quot;https://i.guggy.com/SOMETHING.mp4&quot;, // or GIF
+  &quot;width&quot;: 300,
+  &quot;height&quot;: 238
+}
+</code></pre>
+
+<h3 id="media-preview">Media Preview</h3>
+<p>You can allow your users to choose the GIF background before generating the
+result. You can expect between one and four results to show the user.</p>
+<p>Send a POST request to </p>
+<pre><code>http://text2gif.guggy.com/extractMedia
+</code></pre>
+
+<p>The request headers should include:</p>
+<pre><code>{
+    &quot;Content-Type&quot;:&quot;application/json&quot;,
+    &quot;apiKey&quot;:&quot;YOUR_API_KEY&quot;
+}
+</code></pre>
+
+<p>The request body should contain:</p>
+<pre><code>{
+    &quot;sentence&quot; : &quot;some sentence&quot;
+}
+</code></pre>
+
+<p>The response will be in the format of:</p>
+<pre><code>{
+  &quot;reqId&quot;: &quot;QAOMfoLzbo&quot;,
+  &quot;media&quot;: [
+    {
+      &quot;url&quot;: &quot;http://url1.mp4&quot;,
+      &quot;dimensions&quot;: {
+        &quot;width&quot;: 480,
+        &quot;height&quot;: 270
+      },
+      &quot;isStillImage&quot;: false,
+      &quot;ratio&quot;: 0.5625
+    },
+    ... // More results
+  ]
+}    
+</code></pre>
+
+<p>Once choosing one of the URLs, make another request to:</p>
+<pre><code>http://text2gif.guggy.com/guggify
+</code></pre>
+
+<p>With the same headers.</p>
+<p>The request body should be in the format of:</p>
+<pre><code>{
+    &quot;format&quot;: &quot;mp4&quot;, // either &quot;gif&quot; or &quot;mp4&quot;
+    &quot;sentence&quot; : &quot;some sentence&quot;,
+    &quot;reqId&quot;: &quot;QAOMfoLzbo&quot;, // use same req id from mediaExtract response
+    &quot;predefinedSource&quot;: {
+        &quot;url&quot;: &quot;http://image1.mp4&quot;, // chosen url 
+        &quot;canvasDimensions&quot;: { // dimensions of chosen 
+            &quot;width&quot;: 500,
+            &quot;height&quot;: 393
+        },
+        &quot;isStillImage&quot;: false // same as from extractMedia response
+    }
+}
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
