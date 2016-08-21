@@ -3,7 +3,7 @@ theme: flatly
 extra_css:
   - test.css
 pages:
-- Home: index.md
 - Android: android.md
+- iOS (Swift): ios-swift.md
 - Web SDK: web-sdk.md
 - Rest API: rest-api.md
