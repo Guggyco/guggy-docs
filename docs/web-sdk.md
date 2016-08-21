@@ -65,7 +65,7 @@ Guggy.onType(input.value, function (reqId, mediaItem) {
 })
 ````
 
-Pressing on GuggyButtonn on
+Pressing on GuggyButton will produce the GIF according the last result previewed.
 
 ### Direct API
 

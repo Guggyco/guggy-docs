@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>Andoroid SDK - Guggy Docs</title>
+	<title>Android - Guggy Docs</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -58,7 +58,19 @@
             
             
                 <li class="active">
-                    <a href="./">Andoroid SDK</a>
+                    <a href="./">Android</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../web-sdk/">Web SDK</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../rest-api/">Rest API</a>
                 </li>
             
             
@@ -76,8 +88,8 @@
                         <i class="fa fa-arrow-left"></i> Previous
                     </a>
                 </li>
-                <li class="disabled">
-                    <a rel="prev" >
+                <li >
+                    <a rel="prev" href="../web-sdk/">
                         Next <i class="fa fa-arrow-right"></i>
                     </a>
                 </li>
@@ -91,34 +103,48 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#getting-an-api-key">Getting an API Key</a></li>
+        <li class="main active"><a href="#getting-started">Getting Started</a></li>
         
-    
-        <li class="main "><a href="#including-guggy-in-your-project">Including Guggy in your project</a></li>
+            <li><a href="#getting-an-api-key">Getting an API Key</a></li>
+        
+            <li><a href="#including-guggy-in-your-project">Including Guggy in your project</a></li>
         
     
         <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
         
             <li><a href="#guggybutton">GuggyButton</a></li>
         
-            <li><a href="#guggy-core">Guggy Core</a></li>
+            <li><a href="#direct-api">Direct API</a></li>
         
-            <li><a href="#result-preview">Result Preview</a></li>
-        
-    
-        <li class="main "><a href="#proguard">Proguard</a></li>
+            <li><a href="#media-preview">Media Preview</a></li>
         
     
-        <li class="main "><a href="#permissions">Permissions</a></li>
+        <li class="main "><a href="#keyboard-developers">Keyboard Developers</a></li>
+        
+            <li><a href="#initializing">Initializing</a></li>
+        
+            <li><a href="#guggykeyboardbutton">GuggyKeyboardButton</a></li>
+        
+            <li><a href="#direct-api_1">Direct API</a></li>
+        
+            <li><a href="#media-preview_1">Media Preview</a></li>
+        
+    
+        <li class="main "><a href="#notes">Notes</a></li>
+        
+            <li><a href="#proguard">Proguard</a></li>
+        
+            <li><a href="#permissions">Permissions</a></li>
         
     
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<h3 id="getting-an-api-key">Getting an API Key</h3>
+<h3 id="getting-started">Getting Started</h3>
+<h4 id="getting-an-api-key">Getting an API Key</h4>
 <p>Our API is free. Contact us at <strong>api@guggy.com</strong> to retrieve an API Key.</p>
-<h3 id="including-guggy-in-your-project">Including Guggy in your project</h3>
+<h4 id="including-guggy-in-your-project">Including Guggy in your project</h4>
 <p>Add the following, under dependencies, in your app build.gradle file:</p>
 <pre><code>repositories {
     maven {
@@ -128,20 +154,23 @@
 </code></pre>
 
 <p>In your dependencies part of the build.gradle file add:</p>
-<pre><code> compile 'com.guggy.guggysdk:guggy:1.0.1'
+<pre><code>compile 'com.guggy.guggysdk:guggy:1.0.1'
 </code></pre>
+
 <blockquote>
 <p>Highly Recommended: Add the Guggy content provider to your
-AndroidManifest.xml. <br> This allows to share the GIFs via a secure content://
+AndroidManifest.xml. <br />
+This allows to share the GIFs via a secure content://
 uri</p>
 </blockquote>
 <pre><code>&lt;provider
-    android:name="com.guggy.guggysdk.contentprovider.GuggyProvider"
-    android:authorities="YOUR.PACKAGE.NAME.guggyprovider"
-    android:exported="false"
-    android:grantUriPermissions="true"&gt;
+    android:name=&quot;com.guggy.guggysdk.contentprovider.GuggyProvider&quot;
+    android:authorities=&quot;YOUR.PACKAGE.NAME.guggyprovider&quot;
+    android:exported=&quot;false&quot;
+    android:grantUriPermissions=&quot;true&quot;&gt;
 &lt;/provider&gt;
 </code></pre>
+
 <p>In a starting point in your app make the following call:</p>
 <pre><code>Guggy.init(
     &quot;YOUR_API_KEY&quot;,
@@ -153,144 +182,192 @@ uri</p>
 <pre><code>Guggy.destroy();
 </code></pre>
 
-<p>You can now use Guggy to create GIFs.</p>
+<p>If you must call <code>Guggy.init()</code> without destroying, you can check<br />
+if Guggy is already initialized by calling <code>Guggy.isInitialized()</code>.    </p>
 <h3 id="creating-gifs">Creating GIFs</h3>
 <p>There are two options for creating GIFs:</p>
-<p><code>GuggyButton</code> — A view which handles the API call to Guggy.</p>
-<p><code>GuggyCore</code> — Allows to make the API call directly, but you
-would need to implement the view yourself.</p>
+<p><strong>GuggyButton</strong> — A view which handles the API call to Guggy.</p>
+<p><strong>Direct API</strong> — Allows to make the API call directly, but you
+would need to implement the view yourself.<br/><br/></p>
 <h4 id="guggybutton">GuggyButton</h4>
-<ol>
-<li>
 <p>Place the button, either in a layout file or by creating it programmatically.
 For example</p>
-<p>GuggyButton guggyButton = new GuggyButton();</p>
-</li>
-<li>
+<pre><code>GuggyButton guggyButton = new GuggyButton();
+</code></pre>
 <p>Define a callback to retrieve the text once the button is clicked:</p>
-<p>guggyButton.setRetrieveTextFunction(
-IRetrieveTextFunction() {
-    @Override</p>
-<p>String getText() {</p>
-<p>myEditText.getText()
+<pre><code>guggyButton.setRetrieveTextFunction(new IRetrieveTextFunction() {
+    @Override
+    public String getText() {
+        return myEditText.getText()
     }
-});</p>
-</li>
-<li>
-<p>Set the RequestConfigurationCallback — which sets the request parameters —
+});
+</code></pre>
+
+<p>Set the RequestConfigurationCallback, which sets the request parameters:<br />
 File format (MP4 or GIF), Result URI mode (Local File, Local Content, Remote
 URI) and result handler (Paste URL, Share Intent or a custom which you can
 define).</p>
-<p>guggyButton.setRequestConfigurationCallback(
-IRequestConfigurationCallback() {
-    @Override</p>
-<p>RequestConfiguration getRequestConfiguration() {</p>
-<p>RequestConfiguration(
-                FileFormat.
-,
-                URIMode.
-);</p>
-<pre><code>}
+<pre><code>guggyButton.setRequestConfigurationCallback(new IRequestConfigurationCallback() {
+    @Override
+    public RequestConfiguration getRequestConfiguration() {
+        return new RequestConfiguration(
+                FileFormat.GIF,
+                URIMode.LocalContentProvider
+        );
+    }
+});
 </code></pre>
-<p>});</p>
-</li>
-<li>
+
 <p>Set the result callback , which is called once the GIF is ready:</p>
-<p>guggyButton.setCallback(
-ITwoParamsCallback<Result, RequestConfiguration>() {
-    @Override</p>
-<p>onComplete(Result result, RequestConfiguration requestConfiguration) {</p>
-<pre><code>    String gifURL = result.getUrl();
+<pre><code>guggyButton.setCallback(new ITwoParamsCallback&lt;Result, RequestConfiguration&gt;() {
+    @Override
+    public void onComplete(Result result, RequestConfiguration requestConfiguration) {
+        String gifURL = result.getUrl(); 
+        // Insert in your app
 
-    // Insert in your app
-
-}
-
-@Override
+    }
+    @Override
+    public void onError(Exception e) {
+        // We didn't make it
+    }
+});
 </code></pre>
-<p>onError(Exception e) {</p>
-<p>}
-});</p>
-</li>
-</ol>
-<h4 id="guggy-core">Guggy Core</h4>
+
+<p><br/></p>
+<h4 id="direct-api">Direct API</h4>
 <p>In your onClick handler, make the following call:</p>
-<pre><code>Guggy.
-(
+<pre><code>Guggy.createGug(
         someString,
-
-RequestConfiguration(
-                FileFormat.
-,
-                URIMode.
-),
+        new RequestConfiguration(
+                FileFormat.MP4,
+                URIMode.LocalContentProvider
+        ),
         getApplicationContext(),
-
-ITwoParamsCallback&lt;Result, RequestConfiguration&gt;() {
+        new ITwoParamsCallback&lt;Result, RequestConfiguration&gt;() {
             @Override
+            public void onComplete(Result result, RequestConfiguration requestConfiguration) {
 
-onComplete(Result result, RequestConfiguration requestConfiguration) {
                 String generatedURL = result.getUrl();
-            }
-            @Override
 
-onError(Exception e) {
+            }
+
+            @Override
+            public void onError(Exception e) {
+
             }
         }
 );
 </code></pre>
-<p>You can also send a Bitmap as the first parameter in order to use that image as
-the GIF background.</p>
+
 <p>Note that the Guggy logo should be used as an image for the button.</p>
-<h4 id="result-preview">Result Preview</h4>
+<h4 id="media-preview">Media Preview</h4>
 <p>You can allow your users to choose the GIF background before generating the
 result. You can expect between one and four results to show the user.</p>
 <p>Use the following method:</p>
-<pre><code>Guggy.
-(getTheText(), getApplicationContext(),
-ICallback&lt;GetMediaResult&gt;() {
+<pre><code>Guggy.getMedia(getTheText(), getApplicationContext(), new ICallback&lt;GetMediaResult&gt;() {
     @Override
+    public void onComplete(GetMediaResult result) {
 
-onComplete(GetMediaResult result) {
-        MediaItem mediaItem = result.getMedia().get(0);
-Guggy.
-(
+        MediaItem mediaItem = result.getMedia().get(0); // Show the results to the user
+
+        // When the user has chosen, provide the request ID and the selected MediaItem
+        Guggy.createGug(
                 result.getReqId(),
                 mediaItem,
                 getTheText(),
-
-RequestConfiguration(FileFormat.
-, URIMode.
-),
+                new RequestConfiguration(FileFormat.MP4, URIMode.Remote),
                 getApplicationContext(),
-
-ITwoParamsCallback&lt;CreateGugResult, RequestConfiguration&gt;() {
+                new ITwoParamsCallback&lt;CreateGugResult, RequestConfiguration&gt;() {
                     @Override
+                    public void onComplete(CreateGugResult gugResult, RequestConfiguration requestConfiguration) {
 
-onComplete(CreateGugResult gugResult, RequestConfiguration requestConfiguration) {
                         String url = gugResult.getUrl();
-                    }
-                    @Override
 
-onError(Exception error) {
+                    }
+
+                    @Override
+                    public void onError(Exception error) {
+
                         String err = error.getMessage();
+
                     }
                 }
         );
+
     }
+
     @Override
+    public void onError(Exception error) {
 
-onError(Exception error) {
+        // Handle
 
-}
+    }
 });
 </code></pre>
-<h3 id="proguard">Proguard</h3>
+
+<h3 id="keyboard-developers">Keyboard Developers</h3>
+<h4 id="initializing">Initializing</h4>
+<p>Initializing Guggy with an InputMethodService allows fully automatic behaviour, that is,<br />
+reading the text and handling the GIF generation callback.</p>
+<p>Just call:</p>
+<pre><code>Guggy.init(
+        &quot;YOUR_API_KEY&quot;,
+        this, // The InputMethodService
+        getApplicationContext()
+);
+</code></pre>
+
+<h4 id="guggykeyboardbutton">GuggyKeyboardButton</h4>
+<p>All that is needed is to create the button (via layout or programmatically).</p>
+<p>Adding the button on top of a <code>KeyboardView</code> is possible. If that's what you want to achieve,
+let us know for directions.</p>
+<pre><code>guggyKeyboardButton.setRequestConfigurationCallback(new IRequestConfigurationCallback() {
+    @Override
+    public RequestConfiguration getRequestConfiguration() {
+
+        // You can still get the auto detected configuration and inspect it
+        RequestConfiguration auto = guggyKeyboardButton.getAutoDetectedConfiguration();
+
+        return new RequestConfiguration(
+                FileFormat.GIF,
+                URIMode.LocalContentProvider
+        );
+
+    }
+});
+</code></pre>
+
+<h4 id="direct-api_1">Direct API</h4>
+<p>If you wish to implement your own View component, you can stil call the direct API, like so:</p>
+<pre><code>Guggy.createGug();
+</code></pre>
+
+<h4 id="media-preview_1">Media Preview</h4>
+<p>The API is a bit simplified compared to non-keyboard implementations:</p>
+<pre><code>Guggy.getMedia(new ICallback&lt;GetMediaResult&gt;() {
+    @Override
+    public void onComplete(GetMediaResult getMediaResult) {
+       // Allow the user to choose the MediaItem 
+       MediaItem mediaItem = getMediaResult.getMedia().get(0);
+
+      // When ready, make the following call
+      Guggy.createGug(getMediaResult.getReqId(), mediaItem);
+    }
+
+    @Override
+    public void onError(Exception e) {
+
+    }
+});
+</code></pre>
+
+<h3 id="notes">Notes</h3>
+<h4 id="proguard">Proguard</h4>
 <p>Add the following to your proguard configuration:</p>
 <pre><code>-keep class com.guggy.** { *; }
 -dontwarn com.guggy.**
 </code></pre>
-<h3 id="permissions">Permissions</h3>
+<h4 id="permissions">Permissions</h4>
 <p>For API 19 and up, only the INTERNET permission is needed.</p>
 <p>For older APIs, the READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE permissions
 are needed in order to save result files and enable other apps to use them.</p></div>
