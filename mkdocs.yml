@@ -5,3 +5,4 @@ extra_css:
 pages:
 - Home: index.md
 - Andoroid: android.md
+- Rest API: rest-api.md

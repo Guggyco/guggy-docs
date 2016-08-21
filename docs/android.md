@@ -144,7 +144,7 @@ Guggy.createGug(
 
 Note that the Guggy logo should be used as an image for the button.
 
-#### Result Preview
+#### Media Preview
 
 You can allow your users to choose the GIF background before generating the
 result. You can expect between one and four results to show the user.
@@ -243,7 +243,7 @@ If you wish to implement your own View component, you can stil call the direct A
 Guggy.createGug();
 ````
 
-#### Result Preview
+#### Media Preview
 
 The API is a bit simplified compared to non-keyboard implementations:
 ````
