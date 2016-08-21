@@ -4,4 +4,4 @@ extra_css:
   - test.css
 pages:
 - Home: index.md
-- Andoroid SDK: android.md
+- Andoroid: android.md
