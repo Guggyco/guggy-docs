@@ -1,8 +1,5 @@
 ### Getting Started
 
-#### Getting an API Key
-Our API is free. Contact us at __api@guggy.com__ to retrieve an API Key.
-
 #### Including the SDK in your site
 Include the script tag:
 ````

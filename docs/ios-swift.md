@@ -1,8 +1,5 @@
 ### Getting Started
 
-#### Getting an API Key
-Our API is free. Contact us at __api@guggy.com__ to retrieve an API Key.
-
 #### Including Guggy in your project
 
 In your `podfile`, insert the following line:
