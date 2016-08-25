@@ -116,22 +116,14 @@
     
         <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
         
-            <li><a href="#guggybutton">GuggyButton</a></li>
-        
-            <li><a href="#direct-api">Direct API</a></li>
-        
-            <li><a href="#media-preview">Media Preview</a></li>
+            <li><a href="#previewing-background-gif">Previewing background GIF</a></li>
         
     
         <li class="main "><a href="#keyboard-developers">Keyboard Developers</a></li>
         
             <li><a href="#initializing">Initializing</a></li>
         
-            <li><a href="#guggykeyboardbutton">GuggyKeyboardButton</a></li>
-        
-            <li><a href="#direct-api_1">Direct API</a></li>
-        
-            <li><a href="#media-preview_1">Media Preview</a></li>
+            <li><a href="#previewing-background-gif_1">Previewing background GIF</a></li>
         
     
         <li class="main "><a href="#notes">Notes</a></li>
@@ -187,56 +179,6 @@ uri</p>
 <p>If you must call <code>Guggy.init()</code> without destroying, you can check<br />
 if Guggy is already initialized by calling <code>Guggy.isInitialized()</code>.    </p>
 <h3 id="creating-gifs">Creating GIFs</h3>
-<p>There are two options for creating GIFs:</p>
-<p><strong>GuggyButton</strong> — A view which handles the API call to Guggy.</p>
-<p><strong>Direct API</strong> — Allows to make the API call directly, but you
-would need to implement the view yourself.<br/><br/></p>
-<h4 id="guggybutton">GuggyButton</h4>
-<p>Place the button, either in a layout file or by creating it programmatically.
-For example</p>
-<pre><code>GuggyButton guggyButton = new GuggyButton();
-</code></pre>
-<p>Define a callback to retrieve the text once the button is clicked:</p>
-<pre><code>guggyButton.setRetrieveTextFunction(new IRetrieveTextFunction() {
-    @Override
-    public String getText() {
-        return myEditText.getText()
-    }
-});
-</code></pre>
-
-<p>Set the RequestConfigurationCallback, which sets the request parameters:<br />
-File format (MP4 or GIF), Result URI mode (Local File, Local Content, Remote
-URI) and result handler (Paste URL, Share Intent or a custom which you can
-define).</p>
-<pre><code>guggyButton.setRequestConfigurationCallback(new IRequestConfigurationCallback() {
-    @Override
-    public RequestConfiguration getRequestConfiguration() {
-        return new RequestConfiguration(
-                FileFormat.GIF,
-                URIMode.LocalContentProvider
-        );
-    }
-});
-</code></pre>
-
-<p>Set the result callback , which is called once the GIF is ready:</p>
-<pre><code>guggyButton.setCallback(new ITwoParamsCallback&lt;Result, RequestConfiguration&gt;() {
-    @Override
-    public void onComplete(Result result, RequestConfiguration requestConfiguration) {
-        String gifURL = result.getUrl(); 
-        // Insert in your app
-
-    }
-    @Override
-    public void onError(Exception e) {
-        // We didn't make it
-    }
-});
-</code></pre>
-
-<p><br/></p>
-<h4 id="direct-api">Direct API</h4>
 <p>In your onClick handler, make the following call:</p>
 <pre><code>Guggy.createGug(
         someString,
@@ -262,9 +204,9 @@ define).</p>
 </code></pre>
 
 <p>Note that the Guggy logo should be used as an image for the button.</p>
-<h4 id="media-preview">Media Preview</h4>
+<h4 id="previewing-background-gif">Previewing background GIF</h4>
 <p>You can allow your users to choose the GIF background before generating the
-result. You can expect between one and four results to show the user.</p>
+result.</p>
 <p>Use the following method:</p>
 <pre><code>Guggy.getMedia(getTheText(), getApplicationContext(), new ICallback&lt;GetMediaResult&gt;() {
     @Override
@@ -319,32 +261,11 @@ reading the text and handling the GIF generation callback.</p>
 );
 </code></pre>
 
-<h4 id="guggykeyboardbutton">GuggyKeyboardButton</h4>
-<p>All that is needed is to create the button (via layout or programmatically).</p>
-<p>Adding the button on top of a <code>KeyboardView</code> is possible. If that's what you want to achieve,
-let us know for directions.</p>
-<pre><code>guggyKeyboardButton.setRequestConfigurationCallback(new IRequestConfigurationCallback() {
-    @Override
-    public RequestConfiguration getRequestConfiguration() {
-
-        // You can still get the auto detected configuration and inspect it
-        RequestConfiguration auto = guggyKeyboardButton.getAutoDetectedConfiguration();
-
-        return new RequestConfiguration(
-                FileFormat.GIF,
-                URIMode.LocalContentProvider
-        );
-
-    }
-});
-</code></pre>
-
-<h4 id="direct-api_1">Direct API</h4>
-<p>If you wish to implement your own View component, you can stil call the direct API, like so:</p>
+<p>And on your keyboard button click just call</p>
 <pre><code>Guggy.createGug();
 </code></pre>
 
-<h4 id="media-preview_1">Media Preview</h4>
+<h4 id="previewing-background-gif_1">Previewing background GIF</h4>
 <p>The API is a bit simplified compared to non-keyboard implementations:</p>
 <pre><code>Guggy.getMedia(new ICallback&lt;GetMediaResult&gt;() {
     @Override

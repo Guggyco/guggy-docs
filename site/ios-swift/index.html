@@ -116,10 +116,6 @@
     
         <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
         
-            <li><a href="#guggybutton">GuggyButton</a></li>
-        
-            <li><a href="#direct-api">Direct API</a></li>
-        
     
     </ul>
 </div></div>
@@ -144,43 +140,6 @@
 </code></pre>
 
 <h3 id="creating-gifs">Creating GIFs</h3>
-<p>There are two options for creating GIFs:</p>
-<p><strong>GuggyButton</strong> — A UIButton which handles the API call to Guggy.</p>
-<p><strong>Direct API</strong> — Allows to make the API call directly, but you
-would need to implement the view yourself.<br/><br/></p>
-<h4 id="guggybutton">GuggyButton</h4>
-<p>Choose one of the variations of GuggyButton:</p>
-<p><strong>GuggyRetrieveFileButton</strong> - Returns NSData representation of the GIF</p>
-<p><strong>GuggyCopyToClipboardButton </strong> - Places the GIF data in clipboard</p>
-<p><strong>GuggyRetrieveURLButton</strong> - Returns the URL for the GIF</p>
-<p>Place the button by creating it programmatically (Not supported via Interface Builder). For example:</p>
-<pre><code>let guggyButton = GuggyRetrieveFileButton(frame: CGRect(x: 0, y: 300, width: 100, height: 100))
-</code></pre>
-
-<p>Define a callback to retrieve the text once the button is clicked:</p>
-<pre><code>guggyButton.retrieveTextCallback = {
-
-    return self.textField.text!
-
-}
-</code></pre>
-
-<p>Set the result callbacks , which are called once the GIF is ready:</p>
-<pre><code>guggyButton.onSuccessCallback = { resultNSData in
-
-   self.imageView.image = UIImage.gifWithData(resultNSData)
-
-}
-
-guggyButton.onErrorCallback = { err in
-
-    print(err)
-
-}
-</code></pre>
-
-<p><br/></p>
-<h4 id="direct-api">Direct API</h4>
 <p>In your onClick handler, make one of the following calls, according to your needs:</p>
 <pre><code>Guggy.createGugAndRetrieveFile(text: String, onSuccess: NSData -&gt; Void, onError: String -&gt; Void)
 Guggy.createGugAndCopyToClipboard(text: String, onSuccess: Void -&gt; Void, onError: String -&gt; Void)
