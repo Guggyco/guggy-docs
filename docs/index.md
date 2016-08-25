@@ -1,18 +1,20 @@
-# Welcome to MkDocs
+# Welcome to Guggy Docs
 
-For full documentation visit [mkdocs.org](http://mkdocs.org).
+### Navigating in docs
 
-## Commands
+Here you will find Guggy SDK Documentation.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+* [Android](android)
+* [iOS](ios-swift)
+* [Javascript SDK](js-sdk)
+* [Rest API](rest-api)
 
+### Getting an API Key
+Our API is free. Contact us at __api@guggy.com__ to retrieve an API Key.
 
-## Project layout
+### Support
+For any questions or support, contact __support@guggy.com__
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+<br/>
+[Back to guggy.com](http://www.guggy.com)
+

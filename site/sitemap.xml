@@ -19,6 +19,14 @@
 
     
     <url>
+     <loc>None/ios-swift/</loc>
+     <lastmod>2016-08-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
      <loc>None/web-sdk/</loc>
      <lastmod>2016-08-21</lastmod>
      <changefreq>daily</changefreq>
