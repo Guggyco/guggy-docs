@@ -91,4 +91,6 @@ Guggy.onType(textView.text, onStart: {self.activityIndicatorView.startAnimating(
 }
 ````
 
+Subsequent calls to `Guggy.createGug` will use the last video extracted as the GIF background.
+
 > Note that the Guggy logo should be used as an image for the button used to create the GIFs

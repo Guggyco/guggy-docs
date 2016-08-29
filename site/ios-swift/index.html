@@ -117,6 +117,9 @@
         <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
         
     
+        <li class="main "><a href="#previewing-background-gif">Previewing background GIF</a></li>
+        
+    
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
@@ -124,7 +127,7 @@
 <h3 id="getting-started">Getting Started</h3>
 <h4 id="including-guggy-in-your-project">Including Guggy in your project</h4>
 <p>In your <code>podfile</code>, insert the following line:</p>
-<pre><code>pod ‘guggysdk’, ‘~&gt; 0.0.1
+<pre><code>pod 'guggysdk' , &quot;~&gt; 0.0.6&quot;
 </code></pre>
 
 <p>In every file referencing Guggy add the following</p>
@@ -141,27 +144,56 @@
 
 <h3 id="creating-gifs">Creating GIFs</h3>
 <p>In your onClick handler, make one of the following calls, according to your needs:</p>
-<pre><code>Guggy.createGugAndRetrieveFile(text: String, onSuccess: NSData -&gt; Void, onError: String -&gt; Void)
-Guggy.createGugAndCopyToClipboard(text: String, onSuccess: Void -&gt; Void, onError: String -&gt; Void)
-Guggy.createGugAndRetrieveURL(text: String, onSuccess: guggysdk.Result -&gt; Void, onError: String -&gt; Void)
+<pre><code>Guggy.createGug(text:String, format: ResultFormat, skipDownload: Bool, onComplete:(GuggyResult?) -&gt; Void)
 </code></pre>
 
-<p>For example:</p>
-<pre><code>Guggy.createGugAndRetrieveURL(
+<p>Options:</p>
+<p><code>format</code> - Either GIF or MP4</p>
+<p><code>skipDownload</code> - Whether to return a local URL and NSData for the file created</p>
+<p>Example:</p>
+<pre><code>Guggy.createGug(textField.text!, format: .GIF, skipDownload: false) { result in
 
-    textField.text!,
-    onSuccess: {
-        result in
-        print(result.url)
-    },     
-    onError: {
-        err in
-        print(err)       
-     }   
-)
+    // Handle result
+
+}
 </code></pre>
 
-<p>Note that the Guggy logo should be used as an image for the button.</p></div>
+<p>The result will contain the following fields:</p>
+<p><code>url</code> - Remote URL of the generated media</p>
+<p><code>localUrl</code> - Local URL of the generated media. <em>Will be <code>nil</code> if download was skipped</em></p>
+<p><code>data</code> - NSData of the generated media. <em>Will be <code>nil</code> if download was skipped</em></p>
+<p><code>width</code> - Width of media</p>
+<p><code>height</code> - Height of media</p>
+<h3 id="previewing-background-gif">Previewing background GIF</h3>
+<p>You can preview the background GIF as the user types.</p>
+<blockquote>
+<p>The preview is in mp4 format.</p>
+</blockquote>
+<p>Call <code>onType(text:String, onStart:(()-&gt;())?, onComplete: (String?)</code> on your keyDown or equivalent event.</p>
+<p>Options:</p>
+<p><code>onStart</code> - A callback which is fired when Guggy starts searching for media. <em>Not every call to <code>onType</code> will cause a media search due to debouncing</em></p>
+<p><code>onComplete</code> - A callback which is fired once the media search is over with a String containing a URL to the local mp4 file which can be played using AVLayer.
+If the context extracted is equal to the last context extraction request, the url will be <code>nil</code></p>
+<p>Example:</p>
+<pre><code>Guggy.onType(textView.text, onStart: {self.activityIndicatorView.startAnimating()}) { url -&gt; Void in
+
+    if let url = url {
+
+        self.videoView.play(
+            NSURL(string: url)!,
+            aspectFill: false,
+            onPlay: onPlay
+        )
+
+    }
+
+}
+</code></pre>
+
+<p>Subsequent calls to <code>Guggy.createGug</code> will use the last video extracted as the GIF background.</p>
+<blockquote>
+<p>Note that the Guggy logo should be used as an image for the button used to create the GIFs</p>
+</blockquote></div>
         </div>
 
         <footer class="col-md-12">
