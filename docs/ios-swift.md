@@ -4,7 +4,7 @@
 
 In your `podfile`, insert the following line:
 ````
-pod 'guggysdk' , "~> 0.0.6"
+pod 'guggysdk' , "~> 0.0.7"
 ````
 
 In every file referencing Guggy add the following
