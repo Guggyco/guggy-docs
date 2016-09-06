@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "About Guggy\n\n\nGuggy is a service that analyses a text message, understands its context and delivers a humorous GIF based on that context with the text embedded on the GIF.\n\n\nIntegrating Guggy in your project\n\n\nGuggy is available in a wide range of platforms.\n\n\nBrowse our docs to find the platform of your needs.\n\n\nIf what you need is missing, contact us at \nsupport@guggy.com\n\n\n\n\nGuggy Button To GIF\n\n\nOur SDKs \n API contain the \ncreateGug\n method which receives a text and returns a generated GIF.\n\n\nUse this method to automatically create the GIF from the user's text (without a preview)\n\n\n\n\n\n\n\n\nPreviewing background GIF\n\n\nCall the \nonType\n method which receives a text and returns the background GIF. \n(Currently Available in JS only)\n\n\nUse this method to show the user a preview of the result as he is typing the text message.\n\n\n\n\nNavigating in docs\n\n\nHere you will find Guggy SDK Documentation.\n\n\n\n\nAndroid\n\n\niOS\n\n\nJavascript SDK\n\n\nRest API\n\n\n\n\nGetting an API Key\n\n\nOur API is free. Contact us at \napi@guggy.com\n to retrieve an API Key.\n\n\nSupport\n\n\nFor any questions or support, contact \nsupport@guggy.com\n\n\n\n\nBack to guggy.com", 
+            "text": "About Guggy\n\n\nGuggy is a service that turns text into a whimsy GIF instantly. \n\n\nWe use smart tech and NLP to automatically deliver a relevant humorous GIF with the user's text message embedded. \n\n\nWith Guggy, text is expressed in a graphically, engaging way and enhances messaging experience across multiple apps and platforms.\n\n\nRead more at our \nblog\n\n\nUse these docs to learn how to integrate Guggy into your product.\n\n\nIntegrating Guggy in your project\n\n\nGuggy is available in a wide range of platforms.\n\n\nBrowse our docs to find the platform of your needs.\n\n\nIf what you need is missing, contact us at \nsupport@guggy.com\n\n\n\n\nGuggy Button To GIF\n\n\nOur SDKs \n API contain the \ncreateGug\n method which receives a text and returns a generated GIF.\n\n\nUse this method to automatically create the GIF from the user's text (without a preview)\n\n\n\n\n\n\n\n\nPreviewing background GIF\n\n\nCall the \nonType\n method which receives a text and returns the background GIF.\n\n\nUse this method to show the user a preview of the result as he is typing the text message.\n\n\n\n\nNavigating in docs\n\n\nHere you will find Guggy SDK Documentation.\n\n\n\n\nAndroid\n\n\niOS\n\n\nJavascript SDK\n\n\nRest API\n\n\n\n\nGetting an API Key\n\n\nOur API is free. Contact us at \napi@guggy.com\n to retrieve an API Key.\n\n\nSupport\n\n\nFor any questions or support, contact \nsupport@guggy.com\n\n\n\n\nBack to guggy.com", 
             "title": "Welcome"
         }, 
         {
             "location": "/#about-guggy", 
-            "text": "Guggy is a service that analyses a text message, understands its context and delivers a humorous GIF based on that context with the text embedded on the GIF.", 
+            "text": "Guggy is a service that turns text into a whimsy GIF instantly.   We use smart tech and NLP to automatically deliver a relevant humorous GIF with the user's text message embedded.   With Guggy, text is expressed in a graphically, engaging way and enhances messaging experience across multiple apps and platforms.  Read more at our  blog  Use these docs to learn how to integrate Guggy into your product.", 
             "title": "About Guggy"
         }, 
         {
@@ -22,7 +22,7 @@
         }, 
         {
             "location": "/#previewing-background-gif", 
-            "text": "Call the  onType  method which receives a text and returns the background GIF.  (Currently Available in JS only)  Use this method to show the user a preview of the result as he is typing the text message.", 
+            "text": "Call the  onType  method which receives a text and returns the background GIF.  Use this method to show the user a preview of the result as he is typing the text message.", 
             "title": "Previewing background GIF"
         }, 
         {

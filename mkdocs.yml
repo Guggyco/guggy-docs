@@ -1,4 +1,5 @@
 site_name: Guggy Docs
+site_favicon: favicon.ico
 theme: flatly
 extra_css:
   - test.css
