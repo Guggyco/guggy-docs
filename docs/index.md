@@ -1,6 +1,14 @@
 ## About Guggy
 
-Guggy is a service that analyses a text message, understands its context and delivers a humorous GIF based on that context with the text embedded on the GIF.
+Guggy is a service that turns text into a whimsy GIF instantly. 
+
+We use smart tech and NLP to automatically deliver a relevant humorous GIF with the user's text message embedded. 
+
+With Guggy, text is expressed in a graphically, engaging way and enhances messaging experience across multiple apps and platforms.
+
+Read more at our __[blog](http://goo.gl/UnQy66)__
+
+Use these docs to learn how to integrate Guggy into your product.
 
 ## Integrating Guggy in your project
 
@@ -22,7 +30,7 @@ Use this method to automatically create the GIF from the user's text (without a 
 <br/>
 ### Previewing background GIF
 
-Call the `onType` method which receives a text and returns the background GIF. *(Currently Available in JS only)*
+Call the `onType` method which receives a text and returns the background GIF.
 
 Use this method to show the user a preview of the result as he is typing the text message.
 
