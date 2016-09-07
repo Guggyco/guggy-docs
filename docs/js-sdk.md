@@ -6,7 +6,7 @@
 #### Including the SDK in your site
 Include the script tag:
 ````
-<script src="https://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.3.5/guggy-sdk.min.js"></script>
+<script src="https://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.4.0/guggy-sdk.min.js"></script>
 ````
 
 ### Initializing Guggy
@@ -16,6 +16,8 @@ Options are:
 `apiKey` - __Mandatory__
 
 `onStart` - Optional callback to be excuted when the GIF generation starts.
+
+`userId` - A unique identifier of your user
 
 ````
 Guggy.init({
@@ -61,3 +63,14 @@ Guggy.onType(input.value, function (mediaItem) {
 ````
 
 Calling `Guggy.createGug()` will produce the GIF according the last result previewed.
+
+### Getting a random GIF
+
+If you need an initial GIF to show in the preview before the user is typing, call:
+````
+Guggy.getRandomGIF(function(item, err){
+
+    someVideoElement.src = item.url;
+
+});
+`````
