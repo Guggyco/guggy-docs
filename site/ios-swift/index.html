@@ -121,6 +121,9 @@
         <li class="main "><a href="#previewing-background-gif">Previewing background GIF</a></li>
         
     
+        <li class="main "><a href="#getting-a-random-gif">Getting a random GIF</a></li>
+        
+    
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
@@ -128,7 +131,7 @@
 <h3 id="getting-started">Getting Started</h3>
 <h4 id="including-guggy-in-your-project">Including Guggy in your project</h4>
 <p>In your <code>podfile</code>, insert the following line:</p>
-<pre><code>pod 'guggysdk' , &quot;~&gt; 0.0.7&quot;
+<pre><code>pod 'guggysdk' , &quot;~&gt; 0.0.9&quot;
 </code></pre>
 
 <p>In every file referencing Guggy add the following</p>
@@ -139,20 +142,27 @@
 <pre><code>try! Guggy.initialize(YOUR_API_KEY_HERE) // Throws an AlreadyInitialized error
 </code></pre>
 
+<p>If you want to work with http instead of https (would require an exception for *.guggy.com in your info.plist) you can configure it with</p>
+<pre><code>Guggy.isAllowHttp = true
+</code></pre>
+
 <p>In an exiting point in your app make the following call:</p>
 <pre><code>Guggy.destroy();
 </code></pre>
 
 <h3 id="creating-gifs">Creating GIFs</h3>
 <p>In your onClick handler, make one of the following calls, according to your needs:</p>
-<pre><code>Guggy.createGug(text:String, format: ResultFormat, skipDownload: Bool, onComplete:(GuggyResult?) -&gt; Void)
+<pre><code>// Generate the gug and download it as a local file URL. The result will also contain the NSData.
+createGug(text:String, format: ResultFormat, onGenerateComplete:((GuggyResult?) -&gt; Void)?, onDownloadComplete: (GuggyResult?) -&gt; Void)
+
+// Generate the gug. The result will contain the remote URL only
+createGug(text:String, format: ResultFormat, onComplete: (GuggyResult?) -&gt; Void)
 </code></pre>
 
 <p>Options:</p>
-<p><code>format</code> - Either GIF or MP4</p>
-<p><code>skipDownload</code> - Whether to return a local URL and NSData for the file created</p>
+<p><code>format</code> - Either .GIF or .Mp4</p>
 <p>Example:</p>
-<pre><code>Guggy.createGug(textField.text!, format: .GIF, skipDownload: false) { result in
+<pre><code>Guggy.createGug(textField.text!, format: .GIF) { result in
 
     // Handle result
 
@@ -192,6 +202,23 @@ If the context extracted is equal to the last context extraction request, the ur
 </code></pre>
 
 <p>Subsequent calls to <code>Guggy.createGug</code> will use the last video extracted as the GIF background.</p>
+<h3 id="getting-a-random-gif">Getting a random GIF</h3>
+<p>If you need an initial GIF to show in the preview before the user is typing, call:</p>
+<pre><code>Guggy.getRandomGIF() { url in
+
+    if let url = url {
+
+            self.videoView.play(
+                NSURL(string: url)!,
+                aspectFill: false,
+                onPlay: onPlay
+            )
+
+     }
+
+}
+</code></pre>
+
 <blockquote>
 <p>Note that the Guggy logo should be used as an image for the button used to create the GIFs</p>
 </blockquote></div>

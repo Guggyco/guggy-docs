@@ -34,11 +34,13 @@ Guggy.destroy();
 
 In your onClick handler, make one of the following calls, according to your needs:
 
+Generate the gug and download it as a local file URL. The result will also contain the NSData.
 ````
-// Generate the gug and download it as a local file URL. The result will also contain the NSData.
 createGug(text:String, format: ResultFormat, onGenerateComplete:((GuggyResult?) -> Void)?, onDownloadComplete: (GuggyResult?) -> Void)
+````
 
-// Generate the gug. The result will contain the remote URL only
+Generate the gug. The result will contain the remote URL only
+````
 createGug(text:String, format: ResultFormat, onComplete: (GuggyResult?) -> Void)
 ````
 
