@@ -122,7 +122,7 @@
         }, 
         {
             "location": "/js-sdk/", 
-            "text": "Including Guggy\n\n\nNPM Module\n\n\nnpm install --save @guggy/guggy-js-sdk\n\n\nIncluding the SDK in your site\n\n\nInclude the script tag:\n\n\nscript src=\nhttps://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.3.5/guggy-sdk.min.js\n/script\n\n\n\n\n\nInitializing Guggy\n\n\nOptions are:\n\n\napiKey\n - \nMandatory\n\n\nonStart\n - Optional callback to be excuted when the GIF generation starts.\n\n\nGuggy.init({\n    opts\n});\n\n\n\n\nCreating GIFs\n\n\nIf you're using the direct API, just initialize with the \napiKey\n option.\n\n\nThen call Guggy whenever's needed:\n\n\nGuggy.createGug(sentence, function (result, err) {\n   // Handle result\n});\n\n\n\n\nPreviewing background GIF\n\n\nYou can preview the background GIF as the user types.\n\n\n\n\nThe preview is in mp4 format.\n\n\n\n\nCall \nGuggy.onType\n on your keyDown or equivalent event.\n\n\nParameters that will be passed to the callback:\n\n\nmediaItem\n - The media item containing the url of the video which matches the preview.\nWill be \nnull\n if the context extracted is equal to the last result.\n\n\nGuggy.onType(input.value, function (mediaItem) {\n\n    if (mediaItem) {\n\n        someVideoElement.src = mediaItem.url;\n\n    }\n\n})\n\n\n\n\nCalling \nGuggy.createGug()\n will produce the GIF according the last result previewed.", 
+            "text": "Including Guggy\n\n\nNPM Module\n\n\nnpm install --save @guggy/guggy-js-sdk\n\n\nIncluding the SDK in your site\n\n\nInclude the script tag:\n\n\nscript src=\nhttps://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.4.0/guggy-sdk.min.js\n/script\n\n\n\n\n\nInitializing Guggy\n\n\nOptions are:\n\n\napiKey\n - \nMandatory\n\n\nonStart\n - Optional callback to be excuted when the GIF generation starts.\n\n\nuserId\n - A unique identifier of your user\n\n\nGuggy.init({\n    opts\n});\n\n\n\n\nCreating GIFs\n\n\nIf you're using the direct API, just initialize with the \napiKey\n option.\n\n\nThen call Guggy whenever's needed:\n\n\nGuggy.createGug(sentence, function (result, err) {\n   // Handle result\n});\n\n\n\n\nPreviewing background GIF\n\n\nYou can preview the background GIF as the user types.\n\n\n\n\nThe preview is in mp4 format.\n\n\n\n\nCall \nGuggy.onType\n on your keyDown or equivalent event.\n\n\nParameters that will be passed to the callback:\n\n\nmediaItem\n - The media item containing the url of the video which matches the preview.\nWill be \nnull\n if the context extracted is equal to the last result.\n\n\nGuggy.onType(input.value, function (mediaItem) {\n\n    if (mediaItem) {\n\n        someVideoElement.src = mediaItem.url;\n\n    }\n\n})\n\n\n\n\nCalling \nGuggy.createGug()\n will produce the GIF according the last result previewed.\n\n\nGetting a random GIF\n\n\nIf you need an initial GIF to show in the preview before the user is typing, call:\n````\nGuggy.getRandomGIF(function(item, err){\n\n\nsomeVideoElement.src = item.url;\n\n\n\n});\n`````", 
             "title": "JS SDK"
         }, 
         {
@@ -137,12 +137,12 @@
         }, 
         {
             "location": "/js-sdk/#including-the-sdk-in-your-site", 
-            "text": "Include the script tag:  script src= https://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.3.5/guggy-sdk.min.js /script", 
+            "text": "Include the script tag:  script src= https://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.4.0/guggy-sdk.min.js /script", 
             "title": "Including the SDK in your site"
         }, 
         {
             "location": "/js-sdk/#initializing-guggy", 
-            "text": "Options are:  apiKey  -  Mandatory  onStart  - Optional callback to be excuted when the GIF generation starts.  Guggy.init({\n    opts\n});", 
+            "text": "Options are:  apiKey  -  Mandatory  onStart  - Optional callback to be excuted when the GIF generation starts.  userId  - A unique identifier of your user  Guggy.init({\n    opts\n});", 
             "title": "Initializing Guggy"
         }, 
         {
@@ -154,6 +154,11 @@
             "location": "/js-sdk/#previewing-background-gif", 
             "text": "You can preview the background GIF as the user types.   The preview is in mp4 format.   Call  Guggy.onType  on your keyDown or equivalent event.  Parameters that will be passed to the callback:  mediaItem  - The media item containing the url of the video which matches the preview.\nWill be  null  if the context extracted is equal to the last result.  Guggy.onType(input.value, function (mediaItem) {\n\n    if (mediaItem) {\n\n        someVideoElement.src = mediaItem.url;\n\n    }\n\n})  Calling  Guggy.createGug()  will produce the GIF according the last result previewed.", 
             "title": "Previewing background GIF"
+        }, 
+        {
+            "location": "/js-sdk/#getting-a-random-gif", 
+            "text": "If you need an initial GIF to show in the preview before the user is typing, call:\n````\nGuggy.getRandomGIF(function(item, err){  someVideoElement.src = item.url;  });\n`````", 
+            "title": "Getting a random GIF"
         }, 
         {
             "location": "/rest-api/", 

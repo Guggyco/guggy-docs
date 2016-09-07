@@ -67,10 +67,11 @@ Calling `Guggy.createGug()` will produce the GIF according the last result previ
 ### Getting a random GIF
 
 If you need an initial GIF to show in the preview before the user is typing, call:
+
 ````
 Guggy.getRandomGIF(function(item, err){
 
     someVideoElement.src = item.url;
 
-});
-`````
+})
+````
