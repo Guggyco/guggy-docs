@@ -6,7 +6,7 @@
 #### Including the SDK in your site
 Include the script tag:
 ````
-<script src="https://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.4.1/guggy-sdk.min.js"></script>
+<script src="https://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.4.2/guggy-sdk.min.js"></script>
 ````
 
 ### Initializing Guggy
