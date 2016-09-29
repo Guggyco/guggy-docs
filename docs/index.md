@@ -28,13 +28,14 @@ Use this method to automatically create the GIF from the user's text (without a 
 ![Demo](http://guggy.com/images/guggy-button-preview.gif)
 <br/>
 <br/>
-### Previewing background GIF
 
-Call the `onType` method which receives a text and returns the background GIF.
+### Previewing Results
 
-Use this method to show the user a preview of the result as he is typing the text message.
+In order to integrate Guggy as a GIF provider, you can use the preview API as the user types to receive a downsampled version of the GIF.
 
-![Demo](http://guggy.com/images/guggy-type-preview.gif)
+In this example Guggy is the first GIF provider:
+
+![Demo](http://guggy.com/images/guggy-preview-api.gif)
 
 ## Navigating in docs
 
