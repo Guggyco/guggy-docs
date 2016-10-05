@@ -14,7 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:1.0.6'
+compile 'com.guggy.guggysdk:guggy:2.0.5'
 ````
 
 > Highly Recommended: Add the Guggy content provider to your
@@ -78,53 +78,62 @@ Guggy.createGug(
 
 Note that the Guggy logo should be used as an image for the button.
 
-#### Previewing background GIF
+### Previewing Results
 
-You can allow your users to choose the GIF background before generating the
-result.
+In order to integrate Guggy as a GIF provider, you can use the preview API as the user types to receive a downsampled version of the GIF.
 
 Use the following method:
 
 ````
-Guggy.getMedia(getTheText(), getApplicationContext(), new ICallback<GetMediaResult>() {
-    @Override
-    public void onComplete(GetMediaResult result) {
+String lastReqId;
 
-        MediaItem mediaItem = result.getMedia().get(0); // Show the results to the user
-        
-        // When the user has chosen, provide the request ID and the selected MediaItem
-        Guggy.createGug(
-                result.getReqId(),
-                mediaItem,
-                getTheText(),
-                new RequestConfiguration(FileFormat.MP4, URIMode.Remote),
-                getApplicationContext(),
-                new ITwoParamsCallback<CreateGugResult, RequestConfiguration>() {
-                    @Override
-                    public void onComplete(CreateGugResult gugResult, RequestConfiguration requestConfiguration) {
-
-                        String url = gugResult.getUrl();
-
-                    }
-
-                    @Override
-                    public void onError(Exception error) {
-
-                        String err = error.getMessage();
-
-                    }
-                }
-        );
-
+// Preview - call this method onType or equivalent method
+Guggy.preview(
+    getTheText(), 
+    new RequestConfiguration(FileFormat.MP4, URIMode.LocalFile), 
+    getApplicationContext(), 
+    new ITwoParamsCallback<GuggyResult, RequestConfiguration>() {
+        @Override
+        public void onComplete(final GuggyResult guggyResult, final RequestConfiguration requestConfiguration) {
+    
+            // You need to send the same reqId when generating the final result
+            lastReqId = guggyResult.getReqId(); 
+            
+        }
+    
+        @Override
+        public void onError(Exception error) {
+    
+            // Handle
+            
+        }
     }
+);
 
-    @Override
-    public void onError(Exception error) {
+// When the user has chosen, provide the request ID
 
-        // Handle
-        
-    }
-});
+Guggy.createGug(
+        lastReqId,
+        getTheText(),
+        new RequestConfiguration(FileFormat.MP4, URIMode.Remote),
+        getApplicationContext(),
+        new ITwoParamsCallback<CreateGugResult, RequestConfiguration>() {
+            @Override
+            public void onComplete(CreateGugResult gugResult, RequestConfiguration requestConfiguration) {
+
+                String url = gugResult.getUrl();
+
+            }
+
+            @Override
+            public void onError(Exception error) {
+
+                String err = error.getMessage();
+
+            }
+        }
+);
+
 ````
 
 ### Keyboard Developers
@@ -149,25 +158,34 @@ And on your keyboard button click just call
 Guggy.createGug();
 ````
 
-#### Previewing background GIF
+You should init at the InputMethodService's `onCreate` and destroy Guggy at the InputMethodService's `onDestroy`
 
-The API is a bit simplified compared to non-keyboard implementations:
+#### Previewing Results
+
+For keyboards the API is a bit simplified:
+
 ````
-Guggy.getMedia(new ICallback<GetMediaResult>() {
-    @Override
-    public void onComplete(GetMediaResult getMediaResult) {
-       // Allow the user to choose the MediaItem 
-       MediaItem mediaItem = getMediaResult.getMedia().get(0);
 
-      // When ready, make the following call
-      Guggy.createGug(getMediaResult.getReqId(), mediaItem);
-    }
+Guggy.preview(
+    new RequestConfiguration(FileFormat.GIF, URIMode.Remote),
+    new ITwoParamsCallback<GuggyResult, RequestConfiguration>() {
+        @Override
+        public void onComplete(GuggyResult guggyResult, RequestConfiguration requestConfiguration) {
 
-    @Override
-    public void onError(Exception e) {
+            // Show preview
 
-    }
+        }
+
+        @Override
+        public void onError(Exception e) {
+
+        }
 });
+
+// When the use has chosen just call:
+
+Guggy.createGug(guggyResult.getReqId());
+
 ````
 
 ### Notes
