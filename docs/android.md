@@ -14,7 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:2.0.5'
+compile 'com.guggy.guggysdk:guggy:2.0.8'
 ````
 
 > Highly Recommended: Add the Guggy content provider to your
@@ -189,6 +189,20 @@ Guggy.createGug(guggyResult.getReqId());
 ````
 
 ### Notes
+
+#### Whatsapp GIF support
+
+The SDK defaults to sending a GIF file to Whatsapp, which is supported only in Whatapp's beta version at the moment.
+
+As a workaround until Whatsapp finalizes support in GIFs,
+You can configure the SDK to send a mp4 file which is supported on Whatsapp's public version.
+The user can then send it as a GIF. See more in our [blog](https://medium.com/guggy-blog/how-to-send-guggy-gifs-in-whatsapp-81597639ac4f)
+
+Add the following line after initializing Guggy:
+
+````
+GuggyAutoDetect.getConfig("com.whatsapp").setFileFormat(FileFormat.MP4);
+````
 
 #### Proguard
 
