@@ -117,17 +117,20 @@
     
         <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
         
-            <li><a href="#previewing-background-gif">Previewing background GIF</a></li>
+    
+        <li class="main "><a href="#previewing-results">Previewing Results</a></li>
         
     
         <li class="main "><a href="#keyboard-developers">Keyboard Developers</a></li>
         
             <li><a href="#initializing">Initializing</a></li>
         
-            <li><a href="#previewing-background-gif_1">Previewing background GIF</a></li>
+            <li><a href="#previewing-results_1">Previewing Results</a></li>
         
     
         <li class="main "><a href="#notes">Notes</a></li>
+        
+            <li><a href="#whatsapp-gif-support">Whatsapp GIF support</a></li>
         
             <li><a href="#proguard">Proguard</a></li>
         
@@ -149,7 +152,7 @@
 </code></pre>
 
 <p>In your dependencies part of the build.gradle file add:</p>
-<pre><code>compile 'com.guggy.guggysdk:guggy:1.0.6'
+<pre><code>compile 'com.guggy.guggysdk:guggy:2.0.8'
 </code></pre>
 
 <blockquote>
@@ -205,49 +208,58 @@ if Guggy is already initialized by calling <code>Guggy.isInitialized()</code>.  
 </code></pre>
 
 <p>Note that the Guggy logo should be used as an image for the button.</p>
-<h4 id="previewing-background-gif">Previewing background GIF</h4>
-<p>You can allow your users to choose the GIF background before generating the
-result.</p>
+<h3 id="previewing-results">Previewing Results</h3>
+<p>In order to integrate Guggy as a GIF provider, you can use the preview API as the user types to receive a downsampled version of the GIF.</p>
 <p>Use the following method:</p>
-<pre><code>Guggy.getMedia(getTheText(), getApplicationContext(), new ICallback&lt;GetMediaResult&gt;() {
-    @Override
-    public void onComplete(GetMediaResult result) {
+<pre><code>String lastReqId;
 
-        MediaItem mediaItem = result.getMedia().get(0); // Show the results to the user
+// Preview - call this method onType or equivalent method
+Guggy.preview(
+    getTheText(), 
+    new RequestConfiguration(FileFormat.MP4, URIMode.LocalFile), 
+    getApplicationContext(), 
+    new ITwoParamsCallback&lt;GuggyResult, RequestConfiguration&gt;() {
+        @Override
+        public void onComplete(final GuggyResult guggyResult, final RequestConfiguration requestConfiguration) {
 
-        // When the user has chosen, provide the request ID and the selected MediaItem
-        Guggy.createGug(
-                result.getReqId(),
-                mediaItem,
-                getTheText(),
-                new RequestConfiguration(FileFormat.MP4, URIMode.Remote),
-                getApplicationContext(),
-                new ITwoParamsCallback&lt;CreateGugResult, RequestConfiguration&gt;() {
-                    @Override
-                    public void onComplete(CreateGugResult gugResult, RequestConfiguration requestConfiguration) {
+            // You need to send the same reqId when generating the final result
+            lastReqId = guggyResult.getReqId(); 
 
-                        String url = gugResult.getUrl();
+        }
 
-                    }
+        @Override
+        public void onError(Exception error) {
 
-                    @Override
-                    public void onError(Exception error) {
+            // Handle
 
-                        String err = error.getMessage();
-
-                    }
-                }
-        );
-
+        }
     }
+);
 
-    @Override
-    public void onError(Exception error) {
+// When the user has chosen, provide the request ID
 
-        // Handle
+Guggy.createGug(
+        lastReqId,
+        getTheText(),
+        new RequestConfiguration(FileFormat.MP4, URIMode.Remote),
+        getApplicationContext(),
+        new ITwoParamsCallback&lt;CreateGugResult, RequestConfiguration&gt;() {
+            @Override
+            public void onComplete(CreateGugResult gugResult, RequestConfiguration requestConfiguration) {
 
-    }
-});
+                String url = gugResult.getUrl();
+
+            }
+
+            @Override
+            public void onError(Exception error) {
+
+                String err = error.getMessage();
+
+            }
+        }
+);
+
 </code></pre>
 
 <h3 id="keyboard-developers">Keyboard Developers</h3>
@@ -266,26 +278,42 @@ reading the text and handling the GIF generation callback.</p>
 <pre><code>Guggy.createGug();
 </code></pre>
 
-<h4 id="previewing-background-gif_1">Previewing background GIF</h4>
-<p>The API is a bit simplified compared to non-keyboard implementations:</p>
-<pre><code>Guggy.getMedia(new ICallback&lt;GetMediaResult&gt;() {
-    @Override
-    public void onComplete(GetMediaResult getMediaResult) {
-       // Allow the user to choose the MediaItem 
-       MediaItem mediaItem = getMediaResult.getMedia().get(0);
+<p>You should init at the InputMethodService's <code>onCreate</code> and destroy Guggy at the InputMethodService's <code>onDestroy</code></p>
+<h4 id="previewing-results_1">Previewing Results</h4>
+<p>For keyboards the API is a bit simplified:</p>
+<pre><code>
+Guggy.preview(
+    new RequestConfiguration(FileFormat.GIF, URIMode.Remote),
+    new ITwoParamsCallback&lt;GuggyResult, RequestConfiguration&gt;() {
+        @Override
+        public void onComplete(GuggyResult guggyResult, RequestConfiguration requestConfiguration) {
 
-      // When ready, make the following call
-      Guggy.createGug(getMediaResult.getReqId(), mediaItem);
-    }
+            // Show preview
 
-    @Override
-    public void onError(Exception e) {
+        }
 
-    }
+        @Override
+        public void onError(Exception e) {
+
+        }
 });
+
+// When the use has chosen just call:
+
+Guggy.createGug(guggyResult.getReqId());
+
 </code></pre>
 
 <h3 id="notes">Notes</h3>
+<h4 id="whatsapp-gif-support">Whatsapp GIF support</h4>
+<p>The SDK defaults to sending a GIF file to Whatsapp, which is supported only in Whatapp's beta version at the moment.</p>
+<p>As a workaround until Whatsapp finalizes support in GIFs,
+You can configure the SDK to send a mp4 file which is supported on Whatsapp's public version.
+The user can then send it as a GIF. See more in our <a href="https://medium.com/guggy-blog/how-to-send-guggy-gifs-in-whatsapp-81597639ac4f">blog</a></p>
+<p>Add the following line after initializing Guggy:</p>
+<pre><code>GuggyAutoDetect.getConfig(&quot;com.whatsapp&quot;).setFileFormat(FileFormat.MP4);
+</code></pre>
+
 <h4 id="proguard">Proguard</h4>
 <p>Add the following to your proguard configuration:</p>
 <pre><code>-keep class com.guggy.** { *; }

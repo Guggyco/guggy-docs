@@ -14,7 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:2.0.8'
+compile 'com.guggy.guggysdk:guggy:2.0.10'
 ````
 
 > Highly Recommended: Add the Guggy content provider to your
