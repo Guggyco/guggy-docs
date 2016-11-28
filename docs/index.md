@@ -1,12 +1,10 @@
 ## About Guggy
 
-Guggy is a service that turns text into a whimsy GIF instantly. 
+Guggy is the leader in smart predictive GIFs.
 
-We use smart tech and NLP to automatically deliver a relevant humorous GIF with the user's text message embedded. 
+We use a messaging-oriented NLP engine to analyze a text message, find a relevant GIF and recreate it in real-time with the text on it.
 
 With Guggy, text is expressed in a graphically, engaging way and enhances messaging experience across multiple apps and platforms.
-
-Read more at our __[blog](http://goo.gl/UnQy66)__
 
 Use these docs to learn how to integrate Guggy into your product.
 
@@ -19,23 +17,14 @@ Browse our docs to find the platform of your needs.
 If what you need is missing, contact us at __support@guggy.com__
 <br/>
 
-### Guggy Button To GIF
+### SDK & API
 
-Our SDKs & API contain the `createGug` method which receives a text and returns a generated GIF.
+Guggy SDK & API allows you to transform a sentence into a GIF or a sticker,
+for which the media will be automatically selected based on the context.
 
-Use this method to automatically create the GIF from the user's text (without a preview)
-
-![Demo](http://guggy.com/images/guggy-button-preview.gif)
+![Demo](http://s3.amazonaws.com/guggyresources/guggyexample.gif)
 <br/>
 <br/>
-
-### Previewing Results
-
-In order to integrate Guggy as a GIF provider, you can use the preview API as the user types to receive a downsampled version of the GIF.
-
-In this example Guggy is the first GIF provider:
-
-![Demo](http://guggy.com/images/guggy-preview-api.gif)
 
 ## Navigating in docs
 

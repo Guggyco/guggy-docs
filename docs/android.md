@@ -1,5 +1,7 @@
 ### Getting Started
 
+> Our SDK is currently being upgraded to a new major version and will be updated within the next few days
+
 #### Including Guggy in your project
 
 Add the following, under dependencies, in your app build.gradle file:

@@ -3,7 +3,7 @@
 ### Creating GIFs
 Send a POST request to 
 ````
-http://text2gif.guggy.com/guggify
+http://text2gif.guggy.com/v2/guggify
 ````
 
 The request headers should include:
@@ -17,34 +17,131 @@ The request headers should include:
 The request body should contain:
 ````
 {
-    "format": "mp4", // either "gif" or "mp4"
     "sentence" : "some sentence"
 }
 ````
 
-The response will be in the format of:
+The response will contain an array of results in all supported formats for either a sticker or an animated GIF.
+
+You can use all preview URLs for example to display the user a choice of several GIFs and stickers.
 ````
 {
-  "reqId": "5Ow7Ej46Sy",
-  "mp4": "https://i.guggy.com/SOMETHING.mp4", // or GIF
-  "width": 300,
-  "height": 238
+  "reqId": "iXgHsMjo2r",
+  "animated": [
+    {
+      "gif": {
+        "preview": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.gif",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.gif",
+          "dimensions": {
+            "width": 130,
+            "height": 94
+          }
+        },
+        "lowQuality": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/animated/0/l/guggy.gif",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/animated/0/l/guggy.gif",
+          "dimensions": {
+            "width": 250,
+            "height": 180
+          }
+        },
+        "original": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.gif",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.gif",
+          "dimensions": {
+            "width": 250,
+            "height": 180
+          }
+        }
+      },
+      "mp4": {
+        "original": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.mp4",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.mp4",
+          "dimensions": {
+            "width": 250,
+            "height": 180
+          }
+        },
+        "preview": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.mp4",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.mp4",
+          "dimensions": {
+            "width": 130,
+            "height": 94
+          }
+        }
+      },
+      "thumbnail": {
+        "original": {
+          "url": "http://guggyrepository.guggy.com/NbPBGAkQToGyOdGtLUHJ.jpg",
+          "secureUrl": "https://guggyrepository.guggy.com/NbPBGAkQToGyOdGtLUHJ.jpg",
+          "dimensions": {
+            "width": 250,
+            "height": 180
+          }
+        }
+      }
+    },
+    ...
+  ],
+  "sticker": [
+    {
+      "webp": {
+        "hires": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.webp",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.webp",
+          "dimensions": {
+            "width": 512,
+            "height": 512
+          }
+        },
+        "original": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.webp",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.webp",
+          "dimensions": {
+            "width": 256,
+            "height": 256
+          }
+        },
+        "preview": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.webp",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.webp",
+          "dimensions": {
+            "width": 128,
+            "height": 128
+          }
+        }
+      },
+      "png": {
+        "hires": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.png",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.png",
+          "dimensions": {
+            "width": 512,
+            "height": 512
+          }
+        },
+        "original": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.png",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.png",
+          "dimensions": {
+            "width": 256,
+            "height": 256
+          }
+        },
+        "preview": {
+          "url": "http://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.png",
+          "secureUrl": "https://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.png",
+          "dimensions": {
+            "width": 128,
+            "height": 128
+          }
+        }
+      }
+    },
+    ...
+  ]
 }
 ````
-
-### Previewing Results
-
-In order to integrate Guggy as a GIF provider, you can use the preview API as the user types to receive a downsampled version of the GIF.
-
-Send a POST request to
-````
-http://text2gif.guggy.com/preview
-````
-
-Using the same headers and request body as a regular GIF create request.
-
-The response will return a __reqId__ value.
-
-To generate the final high quality GIF, send a create GIF request as described above with the addition of a __reqId__ parameter which contains the value returned by the preview request.
-
-
