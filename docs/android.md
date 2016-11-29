@@ -1,7 +1,5 @@
 ### Getting Started
 
-> Our SDK is currently being upgraded to a new major version and will be updated within the next few days
-
 #### Including Guggy in your project
 
 Add the following, under dependencies, in your app build.gradle file:
@@ -16,7 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:2.0.10'
+compile 'com.guggy.guggysdk:guggy:3.0.0'
 ````
 
 > Highly Recommended: Add the Guggy content provider to your
@@ -28,7 +26,7 @@ uri
 <provider
     android:name="com.guggy.guggysdk.contentprovider.GuggyProvider"
     android:authorities="YOUR.PACKAGE.NAME.guggyprovider"
-    android:exported="false"
+    android:exported="true"
     android:grantUriPermissions="true">
 </provider>
 ````
@@ -52,88 +50,45 @@ if Guggy is already initialized by calling `Guggy.isInitialized()`.
 
 ### Creating GIFs
 
-In your onClick handler, make the following call:
+In your onClick handler, make a call to `createGug()`.
+
+The returned `GuggyResult` will contain all possible URLs of stickers and animated GIFs in several formats and profiles.
 
 ````
 Guggy.createGug(
-        someString,
-        new RequestConfiguration(
-                FileFormat.MP4,
-                URIMode.LocalContentProvider
-        ),
-        getApplicationContext(),
-        new ITwoParamsCallback<Result, RequestConfiguration>() {
-            @Override
-            public void onComplete(Result result, RequestConfiguration requestConfiguration) {
+    "hello",
+    new ICallback<GuggyResult>() {
+        @Override
+        public void onComplete(GuggyResult result) {
 
-                String generatedURL = result.getUrl();
+            // Example 1: Get all animated GIF previews
+            for (AnimatedMediaResult animatedMediaResult : guggyResult.getAnimated()){
+
+                String previewURL = animatedMediaResult.getGif().getPreview().getUrl();
+
+                // Show preview
+                yourShowImageMethod(previewURL);
+
+                // Get the final result URL of the preview to be used once the user chosen
+                String final URL = guggyResult.getAnimated().get(0).getGif().getLowQuality().getUrl();
 
             }
 
-            @Override
-            public void onError(Exception e) {
+            // Example 2: Get first result of a sticker in webp format, original profile
+            guggyResult.getSticker().get(0).getWebp().getOriginal().getUrl();
 
-            }
+            // Example 3: Get first result of an animated preview of a mp4 format with a secure URL (https)
+            guggyResult.getAnimated().get(0).getMp4().getPreview().getSecureUrl();
+
         }
-);
-````
 
-Note that the Guggy logo should be used as an image for the button.
-
-### Previewing Results
-
-In order to integrate Guggy as a GIF provider, you can use the preview API as the user types to receive a downsampled version of the GIF.
-
-Use the following method:
-
-````
-String lastReqId;
-
-// Preview - call this method onType or equivalent method
-Guggy.preview(
-    getTheText(), 
-    new RequestConfiguration(FileFormat.MP4, URIMode.LocalFile), 
-    getApplicationContext(), 
-    new ITwoParamsCallback<GuggyResult, RequestConfiguration>() {
         @Override
-        public void onComplete(final GuggyResult guggyResult, final RequestConfiguration requestConfiguration) {
-    
-            // You need to send the same reqId when generating the final result
-            lastReqId = guggyResult.getReqId(); 
-            
-        }
-    
-        @Override
-        public void onError(Exception error) {
-    
-            // Handle
-            
+        public void onError(Exception e) {
+
+            // Handle error here
+
         }
     }
-);
-
-// When the user has chosen, provide the request ID
-
-Guggy.createGug(
-        lastReqId,
-        getTheText(),
-        new RequestConfiguration(FileFormat.MP4, URIMode.Remote),
-        getApplicationContext(),
-        new ITwoParamsCallback<CreateGugResult, RequestConfiguration>() {
-            @Override
-            public void onComplete(CreateGugResult gugResult, RequestConfiguration requestConfiguration) {
-
-                String url = gugResult.getUrl();
-
-            }
-
-            @Override
-            public void onError(Exception error) {
-
-                String err = error.getMessage();
-
-            }
-        }
 );
 
 ````
@@ -141,81 +96,84 @@ Guggy.createGug(
 ### Keyboard Developers
 
 #### Initializing
-Initializing Guggy with an InputMethodService allows fully automatic behaviour, that is,  
-reading the text and handling the GIF generation callback.
+Initializing Guggy with an InputMethodService allows fully automatic behaviour, that is,
+reading the text and handling the GIF generation callback and deleting the text from the input once the result is ready.
+
+Guggy will handle sending the correct intent for the currently-opened app or pasting the URL as text if needed.
 
 Just call:
 
 ````
 Guggy.init(
-        "YOUR_API_KEY",
-        this, // The InputMethodService
-        getApplicationContext()
+    "YOUR_API_KEY",
+    this, // The InputMethodService
+    getApplicationContext()
 );
 ````
 
-And on your keyboard button click just call
+And on your keyboard button onClick call, for example:
 
 ````
-Guggy.createGug();
+createGugAndAutoResult(RequestType.Animated, new IErrorCallback() {
+    @Override
+    public void onError(Exception error) {
+        // Handle error
+    }
+});
 ````
 
 You should init at the InputMethodService's `onCreate` and destroy Guggy at the InputMethodService's `onDestroy`
 
 #### Previewing Results
 
-For keyboards the API is a bit simplified:
+To provide the user with previewed results, make a regular call to `createGug()`
+
+Then use the result to show all possibilities. Once the user clicks, make the following call:
 
 ````
 
-Guggy.preview(
-    new RequestConfiguration(FileFormat.GIF, URIMode.Remote),
-    new ITwoParamsCallback<GuggyResult, RequestConfiguration>() {
+Guggy.autoResultWithSelectedURL(
+    guggyResult,
+    currentPackageName, // e.g. "com.whatsapp"
+    selectedURL, // The selected preview's URL
+    context,
+    new IErrorCallback() {
         @Override
-        public void onComplete(GuggyResult guggyResult, RequestConfiguration requestConfiguration) {
-
-            // Show preview
-
+        public void onError(Exception error) {
+            // handle error
         }
-
-        @Override
-        public void onError(Exception e) {
-
-        }
-});
-
-// When the use has chosen just call:
-
-Guggy.createGug(guggyResult.getReqId());
+    }
+);
 
 ````
 
-### Notes
-
-#### Whatsapp GIF support
-
-The SDK defaults to sending a GIF file to Whatsapp, which is supported only in Whatapp's beta version at the moment.
-
-As a workaround until Whatsapp finalizes support in GIFs,
-You can configure the SDK to send a mp4 file which is supported on Whatsapp's public version.
-The user can then send it as a GIF. See more in our [blog](https://medium.com/guggy-blog/how-to-send-guggy-gifs-in-whatsapp-81597639ac4f)
-
-Add the following line after initializing Guggy:
-
-````
-GuggyAutoDetect.getConfig("com.whatsapp").setFileFormat(FileFormat.MP4);
-````
-
-#### Proguard
+### Proguard
 
 Add the following to your proguard configuration:
 
     -keep class com.guggy.** { *; }
     -dontwarn com.guggy.**
 
-#### Permissions
+### Permissions
 
 For API 19 and up, only the INTERNET permission is needed.
 
 For older APIs, the READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE permissions
 are needed in order to save result files and enable other apps to use them.
+
+
+### Changelog
+
+v3.0.0
+
+  * Complete rebuild of our SDK and API:
+
+  * Added support for stickers
+
+  * Added support for preview URLs (downsampled versions of media)
+
+  * Simplification of API - No need to send a request configuration anymore, the GuggyResult will already contain all possible URLs
+
+  * Support Google Allo, Viber in keyboard auto result
+
+  * Local URI Mode is now supported only for keyboards
