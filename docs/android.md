@@ -167,7 +167,7 @@ are needed in order to save result files and enable other apps to use them.
 
 ### Changelog
 
-v3.0.0
+v3.0.1
 
   * Complete rebuild of our SDK and API:
 
