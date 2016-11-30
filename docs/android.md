@@ -14,7 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:3.0.0'
+compile 'com.guggy.guggysdk:guggy:3.0.1'
 ````
 
 > Highly Recommended: Add the Guggy content provider to your
@@ -128,14 +128,17 @@ You should init at the InputMethodService's `onCreate` and destroy Guggy at the 
 
 To provide the user with previewed results, make a regular call to `createGug()`
 
-Then use the result to show all possibilities. Once the user clicks, make the following call:
+Then use the result to show all possibilities.
+
+Once the user clicks, make the following call:
 
 ````
 
-Guggy.autoResultWithSelectedURL(
+Guggy.autoResult(
     guggyResult,
     currentPackageName, // e.g. "com.whatsapp"
-    selectedURL, // The selected preview's URL
+    RequestType.Animated, // The selected item's type
+    position, // The selected item's position in its array
     context,
     new IErrorCallback() {
         @Override
