@@ -149,7 +149,7 @@
 </code></pre>
 
 <p>In your dependencies part of the build.gradle file add:</p>
-<pre><code>compile 'com.guggy.guggysdk:guggy:3.0.0'
+<pre><code>compile 'com.guggy.guggysdk:guggy:3.0.1'
 </code></pre>
 
 <blockquote>
@@ -245,12 +245,14 @@ reading the text and handling the GIF generation callback and deleting the text 
 <p>You should init at the InputMethodService's <code>onCreate</code> and destroy Guggy at the InputMethodService's <code>onDestroy</code></p>
 <h4 id="previewing-results">Previewing Results</h4>
 <p>To provide the user with previewed results, make a regular call to <code>createGug()</code></p>
-<p>Then use the result to show all possibilities. Once the user clicks, make the following call:</p>
+<p>Then use the result to show all possibilities.</p>
+<p>Once the user clicks, make the following call:</p>
 <pre><code>
-Guggy.autoResultWithSelectedURL(
+Guggy.autoResult(
     guggyResult,
     currentPackageName, // e.g. &quot;com.whatsapp&quot;
-    selectedURL, // The selected preview's URL
+    RequestType.Animated, // The selected item's type
+    position, // The selected item's position in its array
     context,
     new IErrorCallback() {
         @Override
