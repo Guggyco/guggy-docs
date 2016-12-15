@@ -180,7 +180,7 @@ uri</p>
 <p>If you must call <code>Guggy.init()</code> without destroying, you can check<br />
 if Guggy is already initialized by calling <code>Guggy.isInitialized()</code>.    </p>
 <h3 id="creating-gifs">Creating GIFs</h3>
-<p>In your onClick handler, make a call to <code>createGug()</code>.</p>
+<p>Make a call to <code>createGug()</code>.</p>
 <p>The returned <code>GuggyResult</code> will contain all possible URLs of stickers and animated GIFs in several formats and profiles.</p>
 <pre><code>Guggy.createGug(
     &quot;hello&quot;,
@@ -196,10 +196,10 @@ if Guggy is already initialized by calling <code>Guggy.isInitialized()</code>.  
                 // Show preview
                 yourShowImageMethod(previewURL);
 
-                // Get the final result URL of the preview to be used once the user chosen
-                String final URL = guggyResult.getAnimated().get(0).getGif().getLowQuality().getUrl();
-
             }
+
+            // Get the final result URL of the preview to be used once the user chosen
+            String finalURL = guggyResult.getAnimated().get(0).getGif().getLowQuality().getUrl();
 
             // Example 2: Get first result of a sticker in webp format, original profile
             guggyResult.getSticker().get(0).getWebp().getOriginal().getUrl();
