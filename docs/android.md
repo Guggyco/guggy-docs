@@ -50,7 +50,7 @@ if Guggy is already initialized by calling `Guggy.isInitialized()`.
 
 ### Creating GIFs
 
-In your onClick handler, make a call to `createGug()`.
+Make a call to `createGug()`.
 
 The returned `GuggyResult` will contain all possible URLs of stickers and animated GIFs in several formats and profiles.
 
@@ -69,10 +69,10 @@ Guggy.createGug(
                 // Show preview
                 yourShowImageMethod(previewURL);
 
-                // Get the final result URL of the preview to be used once the user chosen
-                String final URL = guggyResult.getAnimated().get(0).getGif().getLowQuality().getUrl();
-
             }
+
+            // Get the final result URL of the preview to be used once the user chosen
+            String finalURL = guggyResult.getAnimated().get(0).getGif().getLowQuality().getUrl();
 
             // Example 2: Get first result of a sticker in webp format, original profile
             guggyResult.getSticker().get(0).getWebp().getOriginal().getUrl();
