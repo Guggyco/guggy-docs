@@ -166,6 +166,12 @@ are needed in order to save result files and enable other apps to use them.
 
 
 ### Changelog
+V3.0.3
+  * Removed permissions from SDK. It is the app's responsibility to request the necessary permissions.
+
+v3.0.2
+  * Added contextId to Animated/Sticker Media Result classes
+  * Fixed getters for getDimensions()
 
 v3.0.1
 
