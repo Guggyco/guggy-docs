@@ -14,7 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:3.0.3'
+compile 'com.guggy.guggysdk:guggy:3.0.4'
 ````
 
 > Highly Recommended: Add the Guggy content provider to your
@@ -48,7 +48,7 @@ Guggy.destroy();
 If you must call `Guggy.init()` without destroying, you can check  
 if Guggy is already initialized by calling `Guggy.isInitialized()`.    
 
-### Creating GIFs
+### Creating Media
 
 Make a call to `createGug()`.
 
@@ -57,6 +57,7 @@ The returned `GuggyResult` will contain all possible URLs of stickers and animat
 ````
 Guggy.createGug(
     "hello",
+    null, // Optional params
     new ICallback<GuggyResult>() {
         @Override
         public void onComplete(GuggyResult result) {
@@ -93,6 +94,12 @@ Guggy.createGug(
 
 ````
 
+You can provide `createGug()` with a HashMap of parameters to be sent with the request.
+
+Currently the supported options are:
+
+`predefinedLanguage` - A two character language code that will direct Guggy to use a specific language when extracting context.
+
 ### Keyboard Developers
 
 #### Initializing
@@ -111,20 +118,9 @@ Guggy.init(
 );
 ````
 
-And on your keyboard button onClick call, for example:
-
-````
-createGugAndAutoResult(RequestType.Animated, new IErrorCallback() {
-    @Override
-    public void onError(Exception error) {
-        // Handle error
-    }
-});
-````
-
 You should init at the InputMethodService's `onCreate` and destroy Guggy at the InputMethodService's `onDestroy`
 
-#### Previewing Results
+#### Creating Media
 
 To provide the user with previewed results, make a regular call to `createGug()`
 
@@ -166,6 +162,20 @@ are needed in order to save result files and enable other apps to use them.
 
 
 ### Changelog
+
+V3.0.4
+
+  * Added option to supply createGug() with parameters to be sent to the server.
+  * Added support for hires GIFs
+  * Added support for JPG stickers
+  * Improved timeout handling
+  * Removed createGugAndAutoResult(). Single media requests are now not supported. The integrating app is expected to provide the user with a preview of options to choose from.
+  * Fixed crashes with mp4 files.
+  * Updated AutoResult configurations to support high resolutions, added color themes for each supported app.
+  * Renames:
+    * GuggyAutoDetect to GuggyAutoResult
+    * KeyboardRequestConfiguration to GuggyAutoResultConfiguration
+
 V3.0.3
 
   * Removed permissions from SDK. It is the app's responsibility to request the necessary permissions.
@@ -173,7 +183,7 @@ V3.0.3
 v3.0.2
 
   * Added contextId to Animated/Sticker Media Result classes
-  
+
   * Fixed getters for getDimensions()
 
 v3.0.1
