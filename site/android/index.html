@@ -115,14 +115,14 @@
             <li><a href="#including-guggy-in-your-project">Including Guggy in your project</a></li>
         
     
-        <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
+        <li class="main "><a href="#creating-media">Creating Media</a></li>
         
     
         <li class="main "><a href="#keyboard-developers">Keyboard Developers</a></li>
         
             <li><a href="#initializing">Initializing</a></li>
         
-            <li><a href="#previewing-results">Previewing Results</a></li>
+            <li><a href="#creating-media_1">Creating Media</a></li>
         
     
         <li class="main "><a href="#proguard">Proguard</a></li>
@@ -149,7 +149,7 @@
 </code></pre>
 
 <p>In your dependencies part of the build.gradle file add:</p>
-<pre><code>compile 'com.guggy.guggysdk:guggy:3.0.3'
+<pre><code>compile 'com.guggy.guggysdk:guggy:3.0.4'
 </code></pre>
 
 <blockquote>
@@ -179,11 +179,12 @@ uri</p>
 
 <p>If you must call <code>Guggy.init()</code> without destroying, you can check<br />
 if Guggy is already initialized by calling <code>Guggy.isInitialized()</code>.    </p>
-<h3 id="creating-gifs">Creating GIFs</h3>
+<h3 id="creating-media">Creating Media</h3>
 <p>Make a call to <code>createGug()</code>.</p>
 <p>The returned <code>GuggyResult</code> will contain all possible URLs of stickers and animated GIFs in several formats and profiles.</p>
 <pre><code>Guggy.createGug(
     &quot;hello&quot;,
+    null, // Optional params
     new ICallback&lt;GuggyResult&gt;() {
         @Override
         public void onComplete(GuggyResult result) {
@@ -220,6 +221,9 @@ if Guggy is already initialized by calling <code>Guggy.isInitialized()</code>.  
 
 </code></pre>
 
+<p>You can provide <code>createGug()</code> with a HashMap of parameters to be sent with the request.</p>
+<p>Currently the supported options are:</p>
+<p><code>predefinedLanguage</code> - A two character language code that will direct Guggy to use a specific language when extracting context.</p>
 <h3 id="keyboard-developers">Keyboard Developers</h3>
 <h4 id="initializing">Initializing</h4>
 <p>Initializing Guggy with an InputMethodService allows fully automatic behaviour, that is,
@@ -233,17 +237,8 @@ reading the text and handling the GIF generation callback and deleting the text 
 );
 </code></pre>
 
-<p>And on your keyboard button onClick call, for example:</p>
-<pre><code>createGugAndAutoResult(RequestType.Animated, new IErrorCallback() {
-    @Override
-    public void onError(Exception error) {
-        // Handle error
-    }
-});
-</code></pre>
-
 <p>You should init at the InputMethodService's <code>onCreate</code> and destroy Guggy at the InputMethodService's <code>onDestroy</code></p>
-<h4 id="previewing-results">Previewing Results</h4>
+<h4 id="creating-media_1">Creating Media</h4>
 <p>To provide the user with previewed results, make a regular call to <code>createGug()</code></p>
 <p>Then use the result to show all possibilities.</p>
 <p>Once the user clicks, make the following call:</p>
@@ -274,6 +269,21 @@ Guggy.autoResult(
 <p>For older APIs, the READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE permissions
 are needed in order to save result files and enable other apps to use them.</p>
 <h3 id="changelog">Changelog</h3>
+<p>V3.0.4</p>
+<ul>
+<li>Added option to supply createGug() with parameters to be sent to the server.</li>
+<li>Added support for hires GIFs</li>
+<li>Added support for JPG stickers</li>
+<li>Improved timeout handling</li>
+<li>Removed createGugAndAutoResult(). Single media requests are now not supported. The integrating app is expected to provide the user with a preview of options to choose from.</li>
+<li>Fixed crashes with mp4 files.</li>
+<li>Updated AutoResult configurations to support high resolutions, added color themes for each supported app.</li>
+<li>Renames:<ul>
+<li>GuggyAutoDetect to GuggyAutoResult</li>
+<li>KeyboardRequestConfiguration to GuggyAutoResultConfiguration</li>
+</ul>
+</li>
+</ul>
 <p>V3.0.3</p>
 <ul>
 <li>Removed permissions from SDK. It is the app's responsibility to request the necessary permissions.</li>

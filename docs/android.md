@@ -163,6 +163,12 @@ are needed in order to save result files and enable other apps to use them.
 
 ### Changelog
 
+V3.0.5
+
+  * Increased timeout for createGug()
+  * Added cancel() method to allow cancelling an autoResult operation. This will prevent from firing the intent if the request was cancelled before.
+  * Fixed Viber auto result handling
+
 V3.0.4
 
   * Added option to supply createGug() with parameters to be sent to the server.
