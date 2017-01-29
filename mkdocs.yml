@@ -1,6 +1,6 @@
 site_name: Guggy Docs
 site_favicon: favicon.ico
-theme: mkdocs
+theme: flatly
 extra_css:
   - test.css
 pages:
