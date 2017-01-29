@@ -163,6 +163,15 @@ are needed in order to save result files and enable other apps to use them.
 
 ### Changelog
 
+V3.0.7
+
+  * Allow empty sentences (will result in an error in most cases)
+
+V3.0.6
+
+  * Added autoResult support for Plus Messenger
+  * Improved VK autoResult settings
+
 V3.0.5
 
   * Increased timeout for createGug()
