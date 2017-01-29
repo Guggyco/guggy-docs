@@ -1,0 +1,164 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "About Guggy\n\n\nGuggy is the leader in smart predictive GIFs.\n\n\nWe use a messaging-oriented NLP engine to analyze a text message, find a relevant GIF and recreate it in real-time with the text on it.\n\n\nWith Guggy, text is expressed in a graphically, engaging way and enhances messaging experience across multiple apps and platforms.\n\n\nUse these docs to learn how to integrate Guggy into your product.\n\n\nIntegrating Guggy in your project\n\n\nGuggy is available in a wide range of platforms.\n\n\nBrowse our docs to find the platform of your needs.\n\n\nIf what you need is missing, contact us at \nsupport@guggy.com\n\n\n\n\nSDK \n API\n\n\nGuggy SDK \n API allows you to transform a sentence into a GIF or a sticker,\nfor which the media will be automatically selected based on the context.\n\n\n\n\n\n\n\n\nNavigating in docs\n\n\nHere you will find Guggy SDK Documentation.\n\n\n\n\nAndroid\n\n\niOS\n\n\nJavascript SDK\n\n\nRest API\n\n\n\n\nGetting an API Key\n\n\nOur API is free. Contact us at \napi@guggy.com\n to retrieve an API Key.\n\n\nSupport\n\n\nFor any questions or support, contact \nsupport@guggy.com\n\n\n\n\nBack to guggy.com", 
+            "title": "Welcome"
+        }, 
+        {
+            "location": "/#about-guggy", 
+            "text": "Guggy is the leader in smart predictive GIFs.  We use a messaging-oriented NLP engine to analyze a text message, find a relevant GIF and recreate it in real-time with the text on it.  With Guggy, text is expressed in a graphically, engaging way and enhances messaging experience across multiple apps and platforms.  Use these docs to learn how to integrate Guggy into your product.", 
+            "title": "About Guggy"
+        }, 
+        {
+            "location": "/#integrating-guggy-in-your-project", 
+            "text": "Guggy is available in a wide range of platforms.  Browse our docs to find the platform of your needs.  If what you need is missing, contact us at  support@guggy.com", 
+            "title": "Integrating Guggy in your project"
+        }, 
+        {
+            "location": "/#sdk-api", 
+            "text": "Guggy SDK   API allows you to transform a sentence into a GIF or a sticker,\nfor which the media will be automatically selected based on the context.", 
+            "title": "SDK &amp; API"
+        }, 
+        {
+            "location": "/#navigating-in-docs", 
+            "text": "Here you will find Guggy SDK Documentation.   Android  iOS  Javascript SDK  Rest API", 
+            "title": "Navigating in docs"
+        }, 
+        {
+            "location": "/#getting-an-api-key", 
+            "text": "Our API is free. Contact us at  api@guggy.com  to retrieve an API Key.", 
+            "title": "Getting an API Key"
+        }, 
+        {
+            "location": "/#support", 
+            "text": "For any questions or support, contact  support@guggy.com   Back to guggy.com", 
+            "title": "Support"
+        }, 
+        {
+            "location": "/android/", 
+            "text": "Getting Started\n\n\nIncluding Guggy in your project\n\n\nAdd the following, under dependencies, in your app build.gradle file:\n\n\nrepositories {\n    maven {\n        url 'https://dl.bintray.com/guggy/maven/'\n    }\n}\n\n\n\n\nIn your dependencies part of the build.gradle file add:\n\n\ncompile 'com.guggy.guggysdk:guggy:3.0.7'\n\n\n\n\n\n\nHighly Recommended: Add the Guggy content provider to your\nAndroidManifest.xml. \n\nThis allows to share the GIFs via a secure content://\nuri\n\n\n\n\nprovider\n    android:name=\ncom.guggy.guggysdk.contentprovider.GuggyProvider\n\n    android:authorities=\nYOUR.PACKAGE.NAME.guggyprovider\n\n    android:exported=\ntrue\n\n    android:grantUriPermissions=\ntrue\n\n\n/provider\n\n\n\n\n\nIn a starting point in your app make the following call:\n\n\nGuggy.init(\n    \nYOUR_API_KEY\n,\n    getApplicationContext()\n);\n\n\n\n\nIn an exiting point in your app make the following call:\n\n\nGuggy.destroy();\n\n\n\n\nIf you must call \nGuggy.init()\n without destroying, you can check\n\nif Guggy is already initialized by calling \nGuggy.isInitialized()\n.    \n\n\nCreating Media\n\n\nMake a call to \ncreateGug()\n.\n\n\nThe returned \nGuggyResult\n will contain all possible URLs of stickers and animated GIFs in several formats and profiles.\n\n\nGuggy.createGug(\n    \nhello\n,\n    null, // Optional params\n    new ICallback\nGuggyResult\n() {\n        @Override\n        public void onComplete(GuggyResult result) {\n\n            // Example 1: Get all animated GIF previews\n            for (AnimatedMediaResult animatedMediaResult : guggyResult.getAnimated()){\n\n                String previewURL = animatedMediaResult.getGif().getPreview().getUrl();\n\n                // Show preview\n                yourShowImageMethod(previewURL);\n\n            }\n\n            // Get the final result URL of the preview to be used once the user chosen\n            String finalURL = guggyResult.getAnimated().get(0).getGif().getLowQuality().getUrl();\n\n            // Example 2: Get first result of a sticker in webp format, original profile\n            guggyResult.getSticker().get(0).getWebp().getOriginal().getUrl();\n\n            // Example 3: Get first result of an animated preview of a mp4 format with a secure URL (https)\n            guggyResult.getAnimated().get(0).getMp4().getPreview().getSecureUrl();\n\n        }\n\n        @Override\n        public void onError(Exception e) {\n\n            // Handle error here\n\n        }\n    }\n);\n\n\n\n\n\nYou can provide \ncreateGug()\n with a HashMap of parameters to be sent with the request.\n\n\nCurrently the supported options are:\n\n\npredefinedLanguage\n - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context.\n\n\nKeyboard Developers\n\n\nInitializing\n\n\nInitializing Guggy with an InputMethodService allows fully automatic behaviour, that is,\nreading the text and handling the GIF generation callback and deleting the text from the input once the result is ready.\n\n\nGuggy will handle sending the correct intent for the currently-opened app or pasting the URL as text if needed.\n\n\nJust call:\n\n\nGuggy.init(\n    \nYOUR_API_KEY\n,\n    this, // The InputMethodService\n    getApplicationContext()\n);\n\n\n\n\nYou should init at the InputMethodService's \nonCreate\n and destroy Guggy at the InputMethodService's \nonDestroy\n\n\nCreating Media\n\n\nTo provide the user with previewed results, make a regular call to \ncreateGug()\n\n\nThen use the result to show all possibilities.\n\n\nOnce the user clicks, make the following call:\n\n\n\nGuggy.autoResult(\n    guggyResult,\n    currentPackageName, // e.g. \ncom.whatsapp\n\n    RequestType.Animated, // The selected item's type\n    position, // The selected item's position in its array\n    context,\n    new IErrorCallback() {\n        @Override\n        public void onError(Exception error) {\n            // handle error\n        }\n    }\n);\n\n\n\n\n\nProguard\n\n\nAdd the following to your proguard configuration:\n\n\n-keep class com.guggy.** { *; }\n-dontwarn com.guggy.**\n\n\n\nPermissions\n\n\nFor API 19 and up, only the INTERNET permission is needed.\n\n\nFor older APIs, the READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE permissions\nare needed in order to save result files and enable other apps to use them.\n\n\nChangelog\n\n\nV3.0.5\n\n\n\n\nIncreased timeout for createGug()\n\n\nAdded cancel() method to allow cancelling an autoResult operation. This will prevent from firing the intent if the request was cancelled before.\n\n\nFixed Viber auto result handling\n\n\n\n\nV3.0.4\n\n\n\n\nAdded option to supply createGug() with parameters to be sent to the server.\n\n\nAdded support for hires GIFs\n\n\nAdded support for JPG stickers\n\n\nImproved timeout handling\n\n\nRemoved createGugAndAutoResult(). Single media requests are now not supported. The integrating app is expected to provide the user with a preview of options to choose from.\n\n\nFixed crashes with mp4 files.\n\n\nUpdated AutoResult configurations to support high resolutions, added color themes for each supported app.\n\n\nRenames:\n\n\nGuggyAutoDetect to GuggyAutoResult\n\n\nKeyboardRequestConfiguration to GuggyAutoResultConfiguration\n\n\n\n\n\n\n\n\nV3.0.3\n\n\n\n\nRemoved permissions from SDK. It is the app's responsibility to request the necessary permissions.\n\n\n\n\nv3.0.2\n\n\n\n\n\n\nAdded contextId to Animated/Sticker Media Result classes\n\n\n\n\n\n\nFixed getters for getDimensions()\n\n\n\n\n\n\nv3.0.1\n\n\n\n\n\n\nComplete rebuild of our SDK and API:\n\n\n\n\n\n\nAdded support for stickers\n\n\n\n\n\n\nAdded support for preview URLs (downsampled versions of media)\n\n\n\n\n\n\nSimplification of API - No need to send a request configuration anymore, the GuggyResult will already contain all possible URLs\n\n\n\n\n\n\nSupport Google Allo, Viber in keyboard auto result\n\n\n\n\n\n\nLocal URI Mode is now supported only for keyboards", 
+            "title": "Android"
+        }, 
+        {
+            "location": "/android/#getting-started", 
+            "text": "", 
+            "title": "Getting Started"
+        }, 
+        {
+            "location": "/android/#including-guggy-in-your-project", 
+            "text": "Add the following, under dependencies, in your app build.gradle file:  repositories {\n    maven {\n        url 'https://dl.bintray.com/guggy/maven/'\n    }\n}  In your dependencies part of the build.gradle file add:  compile 'com.guggy.guggysdk:guggy:3.0.7'   Highly Recommended: Add the Guggy content provider to your\nAndroidManifest.xml.  \nThis allows to share the GIFs via a secure content://\nuri   provider\n    android:name= com.guggy.guggysdk.contentprovider.GuggyProvider \n    android:authorities= YOUR.PACKAGE.NAME.guggyprovider \n    android:exported= true \n    android:grantUriPermissions= true  /provider   In a starting point in your app make the following call:  Guggy.init(\n     YOUR_API_KEY ,\n    getApplicationContext()\n);  In an exiting point in your app make the following call:  Guggy.destroy();  If you must call  Guggy.init()  without destroying, you can check \nif Guggy is already initialized by calling  Guggy.isInitialized() .", 
+            "title": "Including Guggy in your project"
+        }, 
+        {
+            "location": "/android/#creating-media", 
+            "text": "Make a call to  createGug() .  The returned  GuggyResult  will contain all possible URLs of stickers and animated GIFs in several formats and profiles.  Guggy.createGug(\n     hello ,\n    null, // Optional params\n    new ICallback GuggyResult () {\n        @Override\n        public void onComplete(GuggyResult result) {\n\n            // Example 1: Get all animated GIF previews\n            for (AnimatedMediaResult animatedMediaResult : guggyResult.getAnimated()){\n\n                String previewURL = animatedMediaResult.getGif().getPreview().getUrl();\n\n                // Show preview\n                yourShowImageMethod(previewURL);\n\n            }\n\n            // Get the final result URL of the preview to be used once the user chosen\n            String finalURL = guggyResult.getAnimated().get(0).getGif().getLowQuality().getUrl();\n\n            // Example 2: Get first result of a sticker in webp format, original profile\n            guggyResult.getSticker().get(0).getWebp().getOriginal().getUrl();\n\n            // Example 3: Get first result of an animated preview of a mp4 format with a secure URL (https)\n            guggyResult.getAnimated().get(0).getMp4().getPreview().getSecureUrl();\n\n        }\n\n        @Override\n        public void onError(Exception e) {\n\n            // Handle error here\n\n        }\n    }\n);  You can provide  createGug()  with a HashMap of parameters to be sent with the request.  Currently the supported options are:  predefinedLanguage  - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context.", 
+            "title": "Creating Media"
+        }, 
+        {
+            "location": "/android/#keyboard-developers", 
+            "text": "", 
+            "title": "Keyboard Developers"
+        }, 
+        {
+            "location": "/android/#initializing", 
+            "text": "Initializing Guggy with an InputMethodService allows fully automatic behaviour, that is,\nreading the text and handling the GIF generation callback and deleting the text from the input once the result is ready.  Guggy will handle sending the correct intent for the currently-opened app or pasting the URL as text if needed.  Just call:  Guggy.init(\n     YOUR_API_KEY ,\n    this, // The InputMethodService\n    getApplicationContext()\n);  You should init at the InputMethodService's  onCreate  and destroy Guggy at the InputMethodService's  onDestroy", 
+            "title": "Initializing"
+        }, 
+        {
+            "location": "/android/#creating-media_1", 
+            "text": "To provide the user with previewed results, make a regular call to  createGug()  Then use the result to show all possibilities.  Once the user clicks, make the following call:  \nGuggy.autoResult(\n    guggyResult,\n    currentPackageName, // e.g.  com.whatsapp \n    RequestType.Animated, // The selected item's type\n    position, // The selected item's position in its array\n    context,\n    new IErrorCallback() {\n        @Override\n        public void onError(Exception error) {\n            // handle error\n        }\n    }\n);", 
+            "title": "Creating Media"
+        }, 
+        {
+            "location": "/android/#proguard", 
+            "text": "Add the following to your proguard configuration:  -keep class com.guggy.** { *; }\n-dontwarn com.guggy.**", 
+            "title": "Proguard"
+        }, 
+        {
+            "location": "/android/#permissions", 
+            "text": "For API 19 and up, only the INTERNET permission is needed.  For older APIs, the READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE permissions\nare needed in order to save result files and enable other apps to use them.", 
+            "title": "Permissions"
+        }, 
+        {
+            "location": "/android/#changelog", 
+            "text": "V3.0.5   Increased timeout for createGug()  Added cancel() method to allow cancelling an autoResult operation. This will prevent from firing the intent if the request was cancelled before.  Fixed Viber auto result handling   V3.0.4   Added option to supply createGug() with parameters to be sent to the server.  Added support for hires GIFs  Added support for JPG stickers  Improved timeout handling  Removed createGugAndAutoResult(). Single media requests are now not supported. The integrating app is expected to provide the user with a preview of options to choose from.  Fixed crashes with mp4 files.  Updated AutoResult configurations to support high resolutions, added color themes for each supported app.  Renames:  GuggyAutoDetect to GuggyAutoResult  KeyboardRequestConfiguration to GuggyAutoResultConfiguration     V3.0.3   Removed permissions from SDK. It is the app's responsibility to request the necessary permissions.   v3.0.2    Added contextId to Animated/Sticker Media Result classes    Fixed getters for getDimensions()    v3.0.1    Complete rebuild of our SDK and API:    Added support for stickers    Added support for preview URLs (downsampled versions of media)    Simplification of API - No need to send a request configuration anymore, the GuggyResult will already contain all possible URLs    Support Google Allo, Viber in keyboard auto result    Local URI Mode is now supported only for keyboards", 
+            "title": "Changelog"
+        }, 
+        {
+            "location": "/ios-swift/", 
+            "text": "Getting Started\n\n\nIncluding Guggy in your project\n\n\nGuggy SDK supports is based on the Swift 3 language.\n\n\nIn your \npodfile\n, insert the following line:\n\n\npod 'guggysdk' , \n~\n 1.0.0\n\n\n\n\n\nIn every file referencing Guggy add the following\n\n\nimport guggysdk\n\n\n\n\nIn a starting point in your app make the following call:\n\n\ntry! Guggy.initialize(YOUR_API_KEY_HERE) // Throws an AlreadyInitialized error\n\n\n\n\nIn an exiting point in your app make the following call:\n\n\nGuggy.destroy();\n\n\n\n\nCreating GIFs\n\n\nMake a call to \ncreateGug()\n.\nThe returned \nGuggyResult\n will contain all possible URLs of stickers and animated GIFs in several formats and profiles.\n\n\ncreateGug(text:String, onComplete: (GuggyResult?) -\n Void)\n\n\n\n\nExample:\n\n\nGuggy.createGug(textField.text!) { guggyResult in\n\n    // Handle result\n     // Example 1: Get all animated GIF previews\n    for animatedResult in result.animated! {\n\n        let previewURL = animatedResult.gif?.preview?.url\n\n        // Show preview\n        yourShowImageMethod(previewURL);\n\n    }\n\n    // Get the final result URL of the preview to be used once the user chosen\n    let finalURL = guggyResult.animated?[0].gif?.lowQuality?.url\n\n    // Example 2: Get first result of a sticker in webp format, original profile\n    guggyResult.sticker?[0].webp?.original?.url\n\n    // Example 3: Get first result of an animated preview of a mp4 format with a secure URL (https)\n    guggyResult.animated?[0].mp4.preview.secureUrl\n\n}", 
+            "title": "iOS (Swift)"
+        }, 
+        {
+            "location": "/ios-swift/#getting-started", 
+            "text": "", 
+            "title": "Getting Started"
+        }, 
+        {
+            "location": "/ios-swift/#including-guggy-in-your-project", 
+            "text": "Guggy SDK supports is based on the Swift 3 language.  In your  podfile , insert the following line:  pod 'guggysdk' ,  ~  1.0.0   In every file referencing Guggy add the following  import guggysdk  In a starting point in your app make the following call:  try! Guggy.initialize(YOUR_API_KEY_HERE) // Throws an AlreadyInitialized error  In an exiting point in your app make the following call:  Guggy.destroy();", 
+            "title": "Including Guggy in your project"
+        }, 
+        {
+            "location": "/ios-swift/#creating-gifs", 
+            "text": "Make a call to  createGug() .\nThe returned  GuggyResult  will contain all possible URLs of stickers and animated GIFs in several formats and profiles.  createGug(text:String, onComplete: (GuggyResult?) -  Void)  Example:  Guggy.createGug(textField.text!) { guggyResult in\n\n    // Handle result\n     // Example 1: Get all animated GIF previews\n    for animatedResult in result.animated! {\n\n        let previewURL = animatedResult.gif?.preview?.url\n\n        // Show preview\n        yourShowImageMethod(previewURL);\n\n    }\n\n    // Get the final result URL of the preview to be used once the user chosen\n    let finalURL = guggyResult.animated?[0].gif?.lowQuality?.url\n\n    // Example 2: Get first result of a sticker in webp format, original profile\n    guggyResult.sticker?[0].webp?.original?.url\n\n    // Example 3: Get first result of an animated preview of a mp4 format with a secure URL (https)\n    guggyResult.animated?[0].mp4.preview.secureUrl\n\n}", 
+            "title": "Creating GIFs"
+        }, 
+        {
+            "location": "/js-sdk/", 
+            "text": "Including Guggy\n\n\n\n\nOur SDK is currently being upgraded to a new major version and will be updated within the next few days\n\n\n\n\nNPM Module\n\n\nnpm install --save @guggy/guggy-js-sdk\n\n\nIncluding the SDK in your site\n\n\nInclude the script tag:\n\n\nscript src=\nhttps://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.4.2/guggy-sdk.min.js\n/script\n\n\n\n\n\nInitializing Guggy\n\n\nOptions are:\n\n\napiKey\n - \nMandatory\n\n\nonStart\n - Optional callback to be excuted when the GIF generation starts.\n\n\nuserId\n - A unique identifier of your user\n\n\nGuggy.init({\n    opts\n});\n\n\n\n\nCreating GIFs\n\n\nIf you're using the direct API, just initialize with the \napiKey\n option.\n\n\nThen call Guggy whenever's needed:\n\n\nGuggy.createGug(sentence, function (result, err) {\n   // Handle result\n});\n\n\n\n\nPreviewing background GIF\n\n\nYou can preview the background GIF as the user types.\n\n\n\n\nThe preview is in mp4 format.\n\n\n\n\nCall \nGuggy.onType\n on your keyDown or equivalent event.\n\n\nParameters that will be passed to the callback:\n\n\nmediaItem\n - The media item containing the url of the video which matches the preview.\nWill be \nnull\n if the context extracted is equal to the last result.\n\n\nGuggy.onType(input.value, function (mediaItem) {\n\n    if (mediaItem) {\n\n        someVideoElement.src = mediaItem.url;\n\n    }\n\n})\n\n\n\n\nCalling \nGuggy.createGug()\n will produce the GIF according the last result previewed.\n\n\nGetting a random GIF\n\n\nIf you need an initial GIF to show in the preview before the user is typing, call:\n\n\nGuggy.getRandomGIF(function(item, err){\n\n    someVideoElement.src = item.url;\n\n})", 
+            "title": "JS SDK"
+        }, 
+        {
+            "location": "/js-sdk/#including-guggy", 
+            "text": "Our SDK is currently being upgraded to a new major version and will be updated within the next few days", 
+            "title": "Including Guggy"
+        }, 
+        {
+            "location": "/js-sdk/#npm-module", 
+            "text": "npm install --save @guggy/guggy-js-sdk", 
+            "title": "NPM Module"
+        }, 
+        {
+            "location": "/js-sdk/#including-the-sdk-in-your-site", 
+            "text": "Include the script tag:  script src= https://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.4.2/guggy-sdk.min.js /script", 
+            "title": "Including the SDK in your site"
+        }, 
+        {
+            "location": "/js-sdk/#initializing-guggy", 
+            "text": "Options are:  apiKey  -  Mandatory  onStart  - Optional callback to be excuted when the GIF generation starts.  userId  - A unique identifier of your user  Guggy.init({\n    opts\n});", 
+            "title": "Initializing Guggy"
+        }, 
+        {
+            "location": "/js-sdk/#creating-gifs", 
+            "text": "If you're using the direct API, just initialize with the  apiKey  option.  Then call Guggy whenever's needed:  Guggy.createGug(sentence, function (result, err) {\n   // Handle result\n});", 
+            "title": "Creating GIFs"
+        }, 
+        {
+            "location": "/js-sdk/#previewing-background-gif", 
+            "text": "You can preview the background GIF as the user types.   The preview is in mp4 format.   Call  Guggy.onType  on your keyDown or equivalent event.  Parameters that will be passed to the callback:  mediaItem  - The media item containing the url of the video which matches the preview.\nWill be  null  if the context extracted is equal to the last result.  Guggy.onType(input.value, function (mediaItem) {\n\n    if (mediaItem) {\n\n        someVideoElement.src = mediaItem.url;\n\n    }\n\n})  Calling  Guggy.createGug()  will produce the GIF according the last result previewed.", 
+            "title": "Previewing background GIF"
+        }, 
+        {
+            "location": "/js-sdk/#getting-a-random-gif", 
+            "text": "If you need an initial GIF to show in the preview before the user is typing, call:  Guggy.getRandomGIF(function(item, err){\n\n    someVideoElement.src = item.url;\n\n})", 
+            "title": "Getting a random GIF"
+        }, 
+        {
+            "location": "/rest-api/", 
+            "text": "Getting Started\n\n\nCreating GIFs\n\n\nSend a POST request to \n\n\nhttp://text2gif.guggy.com/v2/guggify\n\n\n\n\nThe request headers should include:\n\n\n{\n    \nContent-Type\n:\napplication/json\n,\n    \napiKey\n:\nYOUR_API_KEY\n\n}\n\n\n\n\nThe request body should contain:\n\n\n{\n    \nsentence\n : \nsome sentence\n\n}\n\n\n\n\nThe response will contain an array of results in all supported formats for either a sticker or an animated GIF.\n\n\nYou can use all preview URLs for example to display the user a choice of several GIFs and stickers.\n\n\n{\n  \nreqId\n: \niXgHsMjo2r\n,\n  \nanimated\n: [\n    {\n      \ngif\n: {\n        \npreview\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.gif\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.gif\n,\n          \ndimensions\n: {\n            \nwidth\n: 130,\n            \nheight\n: 94\n          }\n        },\n        \nlowQuality\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/animated/0/l/guggy.gif\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/animated/0/l/guggy.gif\n,\n          \ndimensions\n: {\n            \nwidth\n: 250,\n            \nheight\n: 180\n          }\n        },\n        \noriginal\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.gif\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.gif\n,\n          \ndimensions\n: {\n            \nwidth\n: 250,\n            \nheight\n: 180\n          }\n        }\n      },\n      \nmp4\n: {\n        \noriginal\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.mp4\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.mp4\n,\n          \ndimensions\n: {\n            \nwidth\n: 250,\n            \nheight\n: 180\n          }\n        },\n        \npreview\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.mp4\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.mp4\n,\n          \ndimensions\n: {\n            \nwidth\n: 130,\n            \nheight\n: 94\n          }\n        }\n      },\n      \nthumbnail\n: {\n        \noriginal\n: {\n          \nurl\n: \nhttp://guggyrepository.guggy.com/NbPBGAkQToGyOdGtLUHJ.jpg\n,\n          \nsecureUrl\n: \nhttps://guggyrepository.guggy.com/NbPBGAkQToGyOdGtLUHJ.jpg\n,\n          \ndimensions\n: {\n            \nwidth\n: 250,\n            \nheight\n: 180\n          }\n        }\n      }\n    },\n    ...\n  ],\n  \nsticker\n: [\n    {\n      \nwebp\n: {\n        \nhires\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.webp\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.webp\n,\n          \ndimensions\n: {\n            \nwidth\n: 512,\n            \nheight\n: 512\n          }\n        },\n        \noriginal\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.webp\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.webp\n,\n          \ndimensions\n: {\n            \nwidth\n: 256,\n            \nheight\n: 256\n          }\n        },\n        \npreview\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.webp\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.webp\n,\n          \ndimensions\n: {\n            \nwidth\n: 128,\n            \nheight\n: 128\n          }\n        }\n      },\n      \npng\n: {\n        \nhires\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.png\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.png\n,\n          \ndimensions\n: {\n            \nwidth\n: 512,\n            \nheight\n: 512\n          }\n        },\n        \noriginal\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.png\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.png\n,\n          \ndimensions\n: {\n            \nwidth\n: 256,\n            \nheight\n: 256\n          }\n        },\n        \npreview\n: {\n          \nurl\n: \nhttp://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.png\n,\n          \nsecureUrl\n: \nhttps://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.png\n,\n          \ndimensions\n: {\n            \nwidth\n: 128,\n            \nheight\n: 128\n          }\n        }\n      }\n    },\n    ...\n  ]\n}", 
+            "title": "Rest API"
+        }, 
+        {
+            "location": "/rest-api/#getting-started", 
+            "text": "", 
+            "title": "Getting Started"
+        }, 
+        {
+            "location": "/rest-api/#creating-gifs", 
+            "text": "Send a POST request to   http://text2gif.guggy.com/v2/guggify  The request headers should include:  {\n     Content-Type : application/json ,\n     apiKey : YOUR_API_KEY \n}  The request body should contain:  {\n     sentence  :  some sentence \n}  The response will contain an array of results in all supported formats for either a sticker or an animated GIF.  You can use all preview URLs for example to display the user a choice of several GIFs and stickers.  {\n   reqId :  iXgHsMjo2r ,\n   animated : [\n    {\n       gif : {\n         preview : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.gif ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.gif ,\n           dimensions : {\n             width : 130,\n             height : 94\n          }\n        },\n         lowQuality : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/animated/0/l/guggy.gif ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/animated/0/l/guggy.gif ,\n           dimensions : {\n             width : 250,\n             height : 180\n          }\n        },\n         original : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.gif ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.gif ,\n           dimensions : {\n             width : 250,\n             height : 180\n          }\n        }\n      },\n       mp4 : {\n         original : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.mp4 ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.mp4 ,\n           dimensions : {\n             width : 250,\n             height : 180\n          }\n        },\n         preview : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.mp4 ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.mp4 ,\n           dimensions : {\n             width : 130,\n             height : 94\n          }\n        }\n      },\n       thumbnail : {\n         original : {\n           url :  http://guggyrepository.guggy.com/NbPBGAkQToGyOdGtLUHJ.jpg ,\n           secureUrl :  https://guggyrepository.guggy.com/NbPBGAkQToGyOdGtLUHJ.jpg ,\n           dimensions : {\n             width : 250,\n             height : 180\n          }\n        }\n      }\n    },\n    ...\n  ],\n   sticker : [\n    {\n       webp : {\n         hires : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.webp ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.webp ,\n           dimensions : {\n             width : 512,\n             height : 512\n          }\n        },\n         original : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.webp ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.webp ,\n           dimensions : {\n             width : 256,\n             height : 256\n          }\n        },\n         preview : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.webp ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.webp ,\n           dimensions : {\n             width : 128,\n             height : 128\n          }\n        }\n      },\n       png : {\n         hires : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.png ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.png ,\n           dimensions : {\n             width : 512,\n             height : 512\n          }\n        },\n         original : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.png ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.png ,\n           dimensions : {\n             width : 256,\n             height : 256\n          }\n        },\n         preview : {\n           url :  http://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.png ,\n           secureUrl :  https://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.png ,\n           dimensions : {\n             width : 128,\n             height : 128\n          }\n        }\n      }\n    },\n    ...\n  ]\n}", 
+            "title": "Creating GIFs"
+        }
+    ]
+}

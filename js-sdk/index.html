@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        <title>JS SDK - Guggy Docs</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../test.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="..">Guggy Docs</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="..">Welcome</a>
+                    </li>
+                    <li >
+                        <a href="../android/">Android</a>
+                    </li>
+                    <li >
+                        <a href="../ios-swift/">iOS (Swift)</a>
+                    </li>
+                    <li class="active">
+                        <a href="./">JS SDK</a>
+                    </li>
+                    <li >
+                        <a href="../rest-api/">Rest API</a>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../ios-swift/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../rest-api/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#including-guggy">Including Guggy</a></li>
+            <li><a href="#npm-module">NPM Module</a></li>
+            <li><a href="#including-the-sdk-in-your-site">Including the SDK in your site</a></li>
+        <li class="main "><a href="#initializing-guggy">Initializing Guggy</a></li>
+        <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
+        <li class="main "><a href="#previewing-background-gif">Previewing background GIF</a></li>
+        <li class="main "><a href="#getting-a-random-gif">Getting a random GIF</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h3 id="including-guggy">Including Guggy</h3>
+<blockquote>
+<p>Our SDK is currently being upgraded to a new major version and will be updated within the next few days</p>
+</blockquote>
+<h4 id="npm-module">NPM Module</h4>
+<p><code>npm install --save @guggy/guggy-js-sdk</code></p>
+<h4 id="including-the-sdk-in-your-site">Including the SDK in your site</h4>
+<p>Include the script tag:</p>
+<pre><code>&lt;script src=&quot;https://cdn.rawgit.com/Guggyco/guggy-web-sdk/1.4.2/guggy-sdk.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+
+<h3 id="initializing-guggy">Initializing Guggy</h3>
+<p>Options are:</p>
+<p><code>apiKey</code> - <strong>Mandatory</strong></p>
+<p><code>onStart</code> - Optional callback to be excuted when the GIF generation starts.</p>
+<p><code>userId</code> - A unique identifier of your user</p>
+<pre><code>Guggy.init({
+    opts
+});
+</code></pre>
+
+<h3 id="creating-gifs">Creating GIFs</h3>
+<p>If you're using the direct API, just initialize with the <code>apiKey</code> option.</p>
+<p>Then call Guggy whenever's needed:</p>
+<pre><code>Guggy.createGug(sentence, function (result, err) {
+   // Handle result
+});
+</code></pre>
+
+<h3 id="previewing-background-gif">Previewing background GIF</h3>
+<p>You can preview the background GIF as the user types.</p>
+<blockquote>
+<p>The preview is in mp4 format.</p>
+</blockquote>
+<p>Call <code>Guggy.onType</code> on your keyDown or equivalent event.</p>
+<p>Parameters that will be passed to the callback:</p>
+<p><code>mediaItem</code> - The media item containing the url of the video which matches the preview.
+Will be <strong>null</strong> if the context extracted is equal to the last result.</p>
+<pre><code>Guggy.onType(input.value, function (mediaItem) {
+
+    if (mediaItem) {
+
+        someVideoElement.src = mediaItem.url;
+
+    }
+
+})
+</code></pre>
+
+<p>Calling <code>Guggy.createGug()</code> will produce the GIF according the last result previewed.</p>
+<h3 id="getting-a-random-gif">Getting a random GIF</h3>
+<p>If you need an initial GIF to show in the preview before the user is typing, call:</p>
+<pre><code>Guggy.getRandomGIF(function(item, err){
+
+    someVideoElement.src = item.url;
+
+})
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
