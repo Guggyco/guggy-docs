@@ -14,7 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:3.0.5'
+compile 'com.guggy.guggysdk:guggy:3.0.7'
 ````
 
 > Highly Recommended: Add the Guggy content provider to your
@@ -98,7 +98,7 @@ You can provide `createGug()` with a HashMap of parameters to be sent with the r
 
 Currently the supported options are:
 
-`predefinedLanguage` - A two character language code that will direct Guggy to use a specific language when extracting context.
+`predefinedLanguage` - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context.
 
 ### Keyboard Developers
 
