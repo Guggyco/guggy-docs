@@ -118,15 +118,18 @@
         <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
         
     
+        <li class="main "><a href="#changelog">Changelog</a></li>
+        
+    
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
 <h3 id="getting-started">Getting Started</h3>
 <h4 id="including-guggy-in-your-project">Including Guggy in your project</h4>
-<p>Guggy SDK supports is based on the Swift 3 language.</p>
+<p>Guggy SDK is based on the Swift 3 language.</p>
 <p>In your <code>podfile</code>, insert the following line:</p>
-<pre><code>pod 'guggysdk' , &quot;~&gt; 1.0.0&quot;
+<pre><code>pod 'guggysdk' , &quot;~&gt; 1.0.2&quot;
 </code></pre>
 
 <p>In every file referencing Guggy add the following</p>
@@ -144,11 +147,11 @@
 <h3 id="creating-gifs">Creating GIFs</h3>
 <p>Make a call to <code>createGug()</code>.
 The returned <code>GuggyResult</code> will contain all possible URLs of stickers and animated GIFs in several formats and profiles.</p>
-<pre><code>createGug(text:String, onComplete: (GuggyResult?) -&gt; Void)
+<pre><code>createGug(text:String?, onComplete: (GuggyResult?) -&gt; Void)
 </code></pre>
 
 <p>Example:</p>
-<pre><code>Guggy.createGug(textField.text!) { guggyResult in
+<pre><code>Guggy.createGug(textField.text) { guggyResult in
 
     // Handle result
      // Example 1: Get all animated GIF previews
@@ -171,7 +174,13 @@ The returned <code>GuggyResult</code> will contain all possible URLs of stickers
     guggyResult.animated?[0].mp4.preview.secureUrl
 
 }
-</code></pre></div>
+</code></pre>
+
+<h3 id="changelog">Changelog</h3>
+<p>V1.0.2</p>
+<ul>
+<li>Support for nil sentence parameter in createGug</li>
+</ul></div>
         </div>
 
         <footer class="col-md-12">
