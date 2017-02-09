@@ -14,7 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:3.0.7'
+compile 'com.guggy.guggysdk:guggy:3.0.8'
 ````
 
 > Highly Recommended: Add the Guggy content provider to your
@@ -58,6 +58,7 @@ The returned `GuggyResult` will contain all possible URLs of stickers and animat
 Guggy.createGug(
     "hello",
     null, // Optional params
+    context,
     new ICallback<GuggyResult>() {
         @Override
         public void onComplete(GuggyResult result) {
@@ -162,6 +163,14 @@ are needed in order to save result files and enable other apps to use them.
 
 
 ### Changelog
+
+V3.0.8
+
+  * createGug() now requires a context param
+  * Removed label from android manifest
+  * Better handling of file request errors
+  * Added support for Google Hangouts, Instagram, Kate Mobile
+  * Improved support for Wechat, KakaoTalk, Skype, Google Allo
 
 V3.0.7
 

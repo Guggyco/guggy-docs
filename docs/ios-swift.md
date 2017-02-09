@@ -2,11 +2,11 @@
 
 #### Including Guggy in your project
 
-Guggy SDK supports is based on the Swift 3 language.
+Guggy SDK is based on the Swift 3 language.
 
 In your `podfile`, insert the following line:
 ````
-pod 'guggysdk' , "~> 1.0.0"
+pod 'guggysdk' , "~> 1.0.2"
 ````
 
 In every file referencing Guggy add the following
@@ -32,12 +32,12 @@ Make a call to `createGug()`.
 The returned `GuggyResult` will contain all possible URLs of stickers and animated GIFs in several formats and profiles.
 
 ````
-createGug(text:String, onComplete: (GuggyResult?) -> Void)
+createGug(text:String?, onComplete: (GuggyResult?) -> Void)
 ````
 
 Example:
 ````
-Guggy.createGug(textField.text!) { guggyResult in
+Guggy.createGug(textField.text) { guggyResult in
 
     // Handle result
      // Example 1: Get all animated GIF previews
@@ -61,3 +61,9 @@ Guggy.createGug(textField.text!) { guggyResult in
 
 }
 ````
+
+### Changelog
+
+V1.0.2
+
+  * Support for nil sentence parameter in createGug
