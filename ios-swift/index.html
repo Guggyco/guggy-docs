@@ -129,7 +129,7 @@
 <h4 id="including-guggy-in-your-project">Including Guggy in your project</h4>
 <p>Guggy SDK is based on the Swift 3 language.</p>
 <p>In your <code>podfile</code>, insert the following line:</p>
-<pre><code>pod 'guggysdk' , &quot;~&gt; 1.0.2&quot;
+<pre><code>pod 'guggysdk' , &quot;~&gt; 1.0.4&quot;
 </code></pre>
 
 <p>In every file referencing Guggy add the following</p>
@@ -147,7 +147,10 @@
 <h3 id="creating-gifs">Creating GIFs</h3>
 <p>Make a call to <code>createGug()</code>.
 The returned <code>GuggyResult</code> will contain all possible URLs of stickers and animated GIFs in several formats and profiles.</p>
-<pre><code>createGug(text:String?, onComplete: (GuggyResult?) -&gt; Void)
+<p>You can provide <code>createGug()</code> with a dictionary of parameters to be sent with the request.</p>
+<p>Currently the supported options are:</p>
+<p><code>lang</code> - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context and trending content.</p>
+<pre><code>createGug(_ text:String? = nil, userParams:[String:AnyObject]? = nil, onComplete: (GuggyResult?) -&gt; Void)
 </code></pre>
 
 <p>Example:</p>
@@ -177,6 +180,10 @@ The returned <code>GuggyResult</code> will contain all possible URLs of stickers
 </code></pre>
 
 <h3 id="changelog">Changelog</h3>
+<p>V1.0.4</p>
+<ul>
+<li>Added support for user parameters</li>
+</ul>
 <p>V1.0.2</p>
 <ul>
 <li>Support for nil sentence parameter in createGug</li>
