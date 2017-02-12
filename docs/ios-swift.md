@@ -6,7 +6,7 @@ Guggy SDK is based on the Swift 3 language.
 
 In your `podfile`, insert the following line:
 ````
-pod 'guggysdk' , "~> 1.0.2"
+pod 'guggysdk' , "~> 1.0.4"
 ````
 
 In every file referencing Guggy add the following
@@ -31,8 +31,14 @@ Guggy.destroy();
 Make a call to `createGug()`.
 The returned `GuggyResult` will contain all possible URLs of stickers and animated GIFs in several formats and profiles.
 
+You can provide `createGug()` with a dictionary of parameters to be sent with the request.
+
+Currently the supported options are:
+
+`lang` - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context and trending content.
+
 ````
-createGug(text:String?, onComplete: (GuggyResult?) -> Void)
+createGug(_ text:String? = nil, userParams:[String:AnyObject]? = nil, onComplete: (GuggyResult?) -> Void)
 ````
 
 Example:
@@ -63,6 +69,10 @@ Guggy.createGug(textField.text) { guggyResult in
 ````
 
 ### Changelog
+
+V1.0.4
+
+  * Added support for user parameters
 
 V1.0.2
 
