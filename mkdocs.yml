@@ -5,6 +5,7 @@ extra_css:
   - test.css
 pages:
 - Welcome: index.md
+- Guidelines: guideline.md
 - Android: android.md
 - iOS (Swift): ios-swift.md
 - JS SDK: js-sdk.md

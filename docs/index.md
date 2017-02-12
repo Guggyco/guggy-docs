@@ -30,6 +30,7 @@ for which the media will be automatically selected based on the context.
 
 Here you will find Guggy SDK Documentation.
 
+* [Guidelines](guideline)
 * [Android](android)
 * [iOS](ios-swift)
 * [Javascript SDK](js-sdk)
