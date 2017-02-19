@@ -124,6 +124,9 @@
         <li class="main "><a href="#creating-media">Creating Media</a></li>
         
     
+        <li class="main "><a href="#trending-results">Trending Results</a></li>
+        
+    
         <li class="main "><a href="#keyboard-developers">Keyboard Developers</a></li>
         
             <li><a href="#initializing">Initializing</a></li>
@@ -230,7 +233,10 @@ if Guggy is already initialized by calling <code>Guggy.isInitialized()</code>.  
 
 <p>You can provide <code>createGug()</code> with a HashMap of parameters to be sent with the request.</p>
 <p>Currently the supported options are:</p>
-<p><code>predefinedLanguage</code> - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context.</p>
+<p><code>lang</code> - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context.</p>
+<h3 id="trending-results">Trending Results</h3>
+<p>To get trending sentences just call <code>createGug()</code> with no sentence (null).
+Providing a <code>lang</code> parameter will affect the results.</p>
 <h3 id="keyboard-developers">Keyboard Developers</h3>
 <h4 id="initializing">Initializing</h4>
 <p>Initializing Guggy with an InputMethodService allows fully automatic behaviour, that is,

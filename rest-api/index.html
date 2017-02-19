@@ -122,6 +122,9 @@
         <li class="main "><a href="#creating-gifs">Creating GIFs</a></li>
         
     
+        <li class="main "><a href="#getting-trending-results">Getting trending results</a></li>
+        
+    
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
@@ -139,38 +142,42 @@
 }
 </code></pre>
 
-<p>The request body should contain:</p>
+<p>The request body can contain:</p>
 <pre><code>{
-    &quot;sentence&quot; : &quot;some sentence&quot;
+    &quot;sentence&quot; : &quot;some sentence&quot;,
+    &quot;lang&quot;: &quot;ru&quot;
 }
 </code></pre>
 
 <p>The response will contain an array of results in all supported formats for either a sticker or an animated GIF.</p>
 <p>You can use all preview URLs for example to display the user a choice of several GIFs and stickers.</p>
+<p>You can provide the request with parameters.</p>
+<p>Currently the supported parameters are:</p>
+<p><code>lang</code> - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context and trending content.</p>
 <pre><code>{
-  &quot;reqId&quot;: &quot;iXgHsMjo2r&quot;,
+  &quot;reqId&quot;: &quot;HrKANFARqj&quot;,
   &quot;animated&quot;: [
     {
       &quot;gif&quot;: {
         &quot;preview&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.gif&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.gif&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/animated/0/p/guggy.gif&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/animated/0/p/guggy.gif&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 130,
             &quot;height&quot;: 94
           }
         },
         &quot;lowQuality&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/animated/0/l/guggy.gif&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/animated/0/l/guggy.gif&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/animated/0/l/guggy.gif&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/animated/0/l/guggy.gif&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 250,
             &quot;height&quot;: 180
           }
         },
         &quot;original&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.gif&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.gif&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/animated/0/o/guggy.gif&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/animated/0/o/guggy.gif&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 250,
             &quot;height&quot;: 180
@@ -179,16 +186,16 @@
       },
       &quot;mp4&quot;: {
         &quot;original&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.mp4&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/animated/0/o/guggy.mp4&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/animated/0/o/guggy.mp4&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/animated/0/o/guggy.mp4&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 250,
             &quot;height&quot;: 180
           }
         },
         &quot;preview&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.mp4&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/animated/0/p/guggy.mp4&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/animated/0/p/guggy.mp4&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/animated/0/p/guggy.mp4&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 130,
             &quot;height&quot;: 94
@@ -212,24 +219,24 @@
     {
       &quot;webp&quot;: {
         &quot;hires&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.webp&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.webp&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/sticker/0/h/guggy.webp&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/sticker/0/h/guggy.webp&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 512,
             &quot;height&quot;: 512
           }
         },
         &quot;original&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.webp&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.webp&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/sticker/0/o/guggy.webp&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/sticker/0/o/guggy.webp&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 256,
             &quot;height&quot;: 256
           }
         },
         &quot;preview&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.webp&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.webp&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/sticker/0/p/guggy.webp&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/sticker/0/p/guggy.webp&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 128,
             &quot;height&quot;: 128
@@ -238,24 +245,24 @@
       },
       &quot;png&quot;: {
         &quot;hires&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.png&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/sticker/0/h/guggy.png&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/sticker/0/h/guggy.png&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/sticker/0/h/guggy.png&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 512,
             &quot;height&quot;: 512
           }
         },
         &quot;original&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.png&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/sticker/0/o/guggy.png&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/sticker/0/o/guggy.png&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/sticker/0/o/guggy.png&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 256,
             &quot;height&quot;: 256
           }
         },
         &quot;preview&quot;: {
-          &quot;url&quot;: &quot;http://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.png&quot;,
-          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/iXgHsMjo2r/sticker/0/p/guggy.png&quot;,
+          &quot;url&quot;: &quot;http://img.guggy.com/media/HrKANFARqj/sticker/0/p/guggy.png&quot;,
+          &quot;secureUrl&quot;: &quot;https://img.guggy.com/media/HrKANFARqj/sticker/0/p/guggy.png&quot;,
           &quot;dimensions&quot;: {
             &quot;width&quot;: 128,
             &quot;height&quot;: 128
@@ -266,7 +273,11 @@
     ...
   ]
 }
-</code></pre></div>
+</code></pre>
+
+<h3 id="getting-trending-results">Getting trending results</h3>
+<p>Sending a <code>/guggify</code> request with no <code>sentence</code> param will return trending results.
+Providing a <code>lang</code> parameter will affect the results.</p></div>
         </div>
 
         <footer class="col-md-12">
