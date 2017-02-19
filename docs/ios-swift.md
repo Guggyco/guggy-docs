@@ -68,6 +68,11 @@ Guggy.createGug(textField.text) { guggyResult in
 }
 ````
 
+### Trending Results
+
+To get trending sentences just call `createGug()` with no sentence (null).
+Providing a `lang` parameter will affect the results.
+
 ### Changelog
 
 V1.0.4

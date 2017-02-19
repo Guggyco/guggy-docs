@@ -99,7 +99,12 @@ You can provide `createGug()` with a HashMap of parameters to be sent with the r
 
 Currently the supported options are:
 
-`predefinedLanguage` - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context.
+`lang` - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context.
+
+### Trending Results
+
+To get trending sentences just call `createGug()` with no sentence (null).
+Providing a `lang` parameter will affect the results.
 
 ### Keyboard Developers
 
