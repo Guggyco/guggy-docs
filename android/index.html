@@ -259,6 +259,9 @@ This allows to share the GIFs via a secure content:// uri</p>
 </code></pre>
 
 <p>The following apps do not support content provider sharing and will not work in Android Nougat: Viber, VK, Kate Mobile, QQ</p>
+<blockquote>
+<p>This applies only to target SDK above 23. Lower target SDK will function correctly with all apps.</p>
+</blockquote>
 <p>You should init at the InputMethodService's <code>onCreate</code> and destroy Guggy at the InputMethodService's <code>onDestroy</code></p>
 <h4 id="creating-media_1">Creating Media</h4>
 <p>To provide the user with previewed results, make a regular call to <code>createGug()</code></p>
