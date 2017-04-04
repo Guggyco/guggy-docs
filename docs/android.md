@@ -14,21 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:3.0.8'
-````
-
-> Highly Recommended: Add the Guggy content provider to your
-AndroidManifest.xml.   
->This allows to share the GIFs via a secure content://
-uri
-
-````
-<provider
-    android:name="com.guggy.guggysdk.contentprovider.GuggyProvider"
-    android:authorities="YOUR.PACKAGE.NAME.guggyprovider"
-    android:exported="true"
-    android:grantUriPermissions="true">
-</provider>
+compile 'com.guggy.guggysdk:guggy:3.0.12'
 ````
 
 In a starting point in your app make the following call:
@@ -124,6 +110,35 @@ Guggy.init(
 );
 ````
 
+Add the Guggy content provider to your AndroidManifest.xml.
+This allows to share the GIFs via a secure content:// uri
+
+````
+<provider
+    android:name="com.guggy.guggysdk.contentprovider.FileProvider"
+    android:authorities="YOUR.AUTHORITY.HERE"
+    android:exported="false"
+    android:enabled="true"
+    android:grantUriPermissions="true">
+    <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/paths" />
+</provider>
+````
+
+Add the content provider paths file:
+
+````
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <cache-path name= "guggyvideos" path="guggyfiles/" />
+</paths>
+
+````
+
+The following apps do not support content provider sharing and will not work in Android Nougat: Viber, VK, Kate Mobile, QQ
+
+
 You should init at the InputMethodService's `onCreate` and destroy Guggy at the InputMethodService's `onDestroy`
 
 #### Creating Media
@@ -166,8 +181,11 @@ For API 19 and up, only the INTERNET permission is needed.
 For older APIs, the READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE permissions
 are needed in order to save result files and enable other apps to use them.
 
-
 ### Changelog
+
+V3.0.12
+  * Switch content provider behavior to send error when using Nougat target SDK with an app which doesn't support content providers
+  * Support Kate Mobile
 
 V3.0.8
 
