@@ -138,6 +138,8 @@ Add the content provider paths file:
 
 The following apps do not support content provider sharing and will not work in Android Nougat: Viber, VK, Kate Mobile, QQ
 
+> This applies only to target SDK above 23. Lower target SDK will function correctly with all apps.
+
 
 You should init at the InputMethodService's `onCreate` and destroy Guggy at the InputMethodService's `onDestroy`
 
