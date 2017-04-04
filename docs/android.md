@@ -184,6 +184,7 @@ are needed in order to save result files and enable other apps to use them.
 ### Changelog
 
 V3.0.12
+
   * Switch content provider behavior to send error when using Nougat target SDK with an app which doesn't support content providers
   * Support Kate Mobile
 
