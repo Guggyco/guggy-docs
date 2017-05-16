@@ -14,7 +14,7 @@ repositories {
 In your dependencies part of the build.gradle file add:
 
 ````
-compile 'com.guggy.guggysdk:guggy:3.0.12'
+compile 'com.guggy.guggysdk:guggy:3.0.13'
 ````
 
 In a starting point in your app make the following call:
@@ -184,6 +184,10 @@ For older APIs, the READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE permissions
 are needed in order to save result files and enable other apps to use them.
 
 ### Changelog
+
+V3.0.13
+
+  * Minor change in the way files are being downloaded
 
 V3.0.12
 

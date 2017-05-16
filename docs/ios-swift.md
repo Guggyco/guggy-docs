@@ -6,7 +6,7 @@ Guggy SDK is based on the Swift 3 language.
 
 In your `podfile`, insert the following line:
 ````
-pod 'guggysdk' , "~> 1.0.4"
+pod 'guggysdk' , "~> 1.0.10"
 ````
 
 In every file referencing Guggy add the following
@@ -28,22 +28,36 @@ Guggy.destroy();
 
 ### Creating GIFs
 
-Make a call to `createGug()`.
+Build a `GuggyRequest` object and then make a call to `createGug()`.
+
 The returned `GuggyResult` will contain all possible URLs of stickers and animated GIFs in several formats and profiles.
 
-You can provide `createGug()` with a dictionary of parameters to be sent with the request.
-
-Currently the supported options are:
-
-`lang` - A two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context and trending content.
-
 ````
-createGug(_ text:String? = nil, userParams:[String:AnyObject]? = nil, onComplete: (GuggyResult?) -> Void)
+createGug(GuggyRequest, (GuggyResult?) -> Void)
 ````
+
+The GuggyRequestBuilder supports these methods:
+
+`sentence(String)` - The text to be overlaid on the media and to be used when extracting context
+
+`hiddenMeaning(String)` - Adds a hidden meaning, such that the background media will be chosen by it, but the sentence() text will appear on the media
+
+`noText()` - Requests that no text will be attached to media
+
+`invertMeaning()` - Directs the engine to extract inverted/cynical contexts
+
+`lang(String)` - Allows sending two character ISO 639-1 language code that will direct Guggy to use a specific language when extracting context and trending content
 
 Example:
+
 ````
-Guggy.createGug(textField.text) { guggyResult in
+
+let request = GuggyRequestBuilder()
+            .sentence(textField.text)
+            .hiddenMeaning(hiddenMeaningTextField.text)
+            .build()
+
+Guggy.createGug(request) { guggyResult in
 
     // Handle result
      // Example 1: Get all animated GIF previews
@@ -70,10 +84,15 @@ Guggy.createGug(textField.text) { guggyResult in
 
 ### Trending Results
 
-To get trending sentences just call `createGug()` with no sentence (null).
+To get trending sentences don't include a `sentence()` call in the request builder.
+
 Providing a `lang` parameter will affect the results.
 
 ### Changelog
+
+V1.0.10
+
+  * Added GuggyRequest class and new request features.
 
 V1.0.4
 
