@@ -22,8 +22,8 @@ Another example for a use case can be a long press on the send button to preview
 
 ## Rules and guidelines
 
-#### Sending the __lang__ parameter
-This parameter is very important for the functionality of the service and must be sent to support correct language analyzing and language based trending results.
+#### Language support
+Guggy supports over 30 languages, but natively supports and will perform best in English.
 
 #### Sending the __userId__ parameter
 This parameter can be scrambled and hashed but has to be unique for each user in order to have features such as “displaying a specific result to a user once” and others like that.
@@ -33,16 +33,6 @@ This mechanism is very efficient and will reduce the number of times and data th
 
 #### Order of rendering while previewing
 In order to improve the user experience it is recommended to first show the thumbnail of the result and then the preview version. Please notice that only the __preview version__ is allowed to be used while previewing.
-
-#### Hint
-In case you are going to integrate Guggy in a “preview results while the user types” mode it is very important to include a hint about what Guggy is. While with features like GIPHY and Tenor you would normally add a “search gifs” hint, with Guggy you should add a “write a message”.
-
-#### Trending results
-This feature will provide the trending texts of recent time by language (see section 1). It should be used when the user hasn’t written anything yet. Here are some examples of trending texts in the Russian and English languages:
-
-Russian: доброе утро, спокойной ночи, как дела, люблю тебя, как дела?, я тебя люблю, всем привет.
-
-English: i love you, good morning, love you, happy birthday, good night, how are you.
 
 #### Correct order of display after user selected a result
 It is very important to first display the preview result (since the use already have it on his device) and then replace it with the low res, original or high resolution version, depending on the bandwidth (3G, 4G, wifi) of the user. Example for this can be shown in Hop messenger.
