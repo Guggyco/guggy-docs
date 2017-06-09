@@ -151,20 +151,14 @@ Tapping on the Guggy button will preview results according to the user’s text 
 <tbody></tbody>
 </table>
 <h2 id="rules-and-guidelines">Rules and guidelines</h2>
-<h4 id="sending-the-lang-parameter">Sending the <strong>lang</strong> parameter</h4>
-<p>This parameter is very important for the functionality of the service and must be sent to support correct language analyzing and language based trending results.</p>
+<h4 id="language-support">Language support</h4>
+<p>Guggy supports over 30 languages, but natively supports and will perform best in English.</p>
 <h4 id="sending-the-userid-parameter">Sending the <strong>userId</strong> parameter</h4>
 <p>This parameter can be scrambled and hashed but has to be unique for each user in order to have features such as “displaying a specific result to a user once” and others like that.</p>
 <h4 id="fetching-and-displaying-only-the-shown-results">Fetching and displaying only the shown results</h4>
 <p>This mechanism is very efficient and will reduce the number of times and data the user fetches from the servers. You can see an example for this mechanism in Guggy FunApp where while scrolling horizontally the new results are being loaded.</p>
 <h4 id="order-of-rendering-while-previewing">Order of rendering while previewing</h4>
 <p>In order to improve the user experience it is recommended to first show the thumbnail of the result and then the preview version. Please notice that only the <strong>preview version</strong> is allowed to be used while previewing.</p>
-<h4 id="hint">Hint</h4>
-<p>In case you are going to integrate Guggy in a “preview results while the user types” mode it is very important to include a hint about what Guggy is. While with features like GIPHY and Tenor you would normally add a “search gifs” hint, with Guggy you should add a “write a message”.</p>
-<h4 id="trending-results">Trending results</h4>
-<p>This feature will provide the trending texts of recent time by language (see section 1). It should be used when the user hasn’t written anything yet. Here are some examples of trending texts in the Russian and English languages:</p>
-<p>Russian: доброе утро, спокойной ночи, как дела, люблю тебя, как дела?, я тебя люблю, всем привет.</p>
-<p>English: i love you, good morning, love you, happy birthday, good night, how are you.</p>
 <h4 id="correct-order-of-display-after-user-selected-a-result">Correct order of display after user selected a result</h4>
 <p>It is very important to first display the preview result (since the use already have it on his device) and then replace it with the low res, original or high resolution version, depending on the bandwidth (3G, 4G, wifi) of the user. Example for this can be shown in Hop messenger.</p>
 <ul>
