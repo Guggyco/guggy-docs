@@ -39,6 +39,14 @@ Currently the supported parameters are:
   "animated": [
     {
       "gif": {
+        "hires": {
+          "url": "http://img.guggy.com/media/HrKANFARqj/animated/0/h/guggy.gif",
+          "secureUrl": "https://img.guggy.com/media/HrKANFARqj/animated/0/h/guggy.gif",
+          "dimensions": {
+            "width": 250,
+            "height": 180
+          }
+        },
         "preview": {
           "url": "http://img.guggy.com/media/HrKANFARqj/animated/0/p/guggy.gif",
           "secureUrl": "https://img.guggy.com/media/HrKANFARqj/animated/0/p/guggy.gif",
@@ -65,6 +73,14 @@ Currently the supported parameters are:
         }
       },
       "mp4": {
+         "hires": {
+            "url": "http://img.guggy.com/media/HrKANFARqj/animated/0/h/guggy.gif",
+            "secureUrl": "https://img.guggy.com/media/HrKANFARqj/animated/0/h/guggy.gif",
+            "dimensions": {
+              "width": 250,
+              "height": 180
+            }
+        },
         "original": {
           "url": "http://img.guggy.com/media/HrKANFARqj/animated/0/o/guggy.mp4",
           "secureUrl": "https://img.guggy.com/media/HrKANFARqj/animated/0/o/guggy.mp4",
